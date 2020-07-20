@@ -39,3 +39,6 @@ npm-debug.log
 
 # idea
 .idea/
+
+# config
+config/
