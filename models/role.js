@@ -1,6 +1,6 @@
-const Role = Object.freeze({
+const ROLE = Object.freeze({
   COMMON: 'COMMON',
   ADMIN: 'ADMIN'
 });
 
-module.exports = Role;
+module.exports = ROLE;

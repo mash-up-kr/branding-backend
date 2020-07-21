@@ -51,7 +51,7 @@ module.exports = class Applicant extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'questions'
+      tableName: 'applicants'
     })
   }
 }

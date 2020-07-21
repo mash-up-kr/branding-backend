@@ -1,6 +1,6 @@
 
 const express = require('express');
-import QnA from '../../models/question';
+import Question from '../../models/question';
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const Role = require("./role");
+const ROLE = require("./role");
 
 module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
@@ -19,7 +19,7 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
       },
       role: {
-        type: Sequelize.ENUM(Role.COMMON, Role.ADMIN),
+        type: Sequelize.ENUM(ROLE.COMMON, ROLE.ADMIN),
         allowNull: false,
       },
       create_time: {

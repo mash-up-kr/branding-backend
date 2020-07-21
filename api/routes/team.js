@@ -1,5 +1,5 @@
 const express = require('express');
-import User from '../../models/team';
+import Team from '../../models/team';
 
 const router = express.Router();
 
