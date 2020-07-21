@@ -9,6 +9,7 @@ import qnaRoute from './api/routes/qna';
 import teamRoute from './api/routes/team';
 import questionRoute from './api/routes/question';
 import applicantRoute from './api/routes/applicant';
+import answerRoute from './api/routes/answer';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/qna', qnaRoute);
 app.use('/teams', teamRoute);
 app.use('/questions', questionRoute);
 app.use('/applicants', applicantRoute);
+app.use('/answers', answerRoute);
 
 app.get('/', (req, res) => {
   res.send('HELLo world');
