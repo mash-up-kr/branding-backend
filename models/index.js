@@ -2,6 +2,7 @@ const path = require('path');
 const User = require('./user');
 const Recruiting = require('./recruiting');
 const QnA = require('./qna');
+const Team = require('./team');
 const Sequelize = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
@@ -16,10 +17,12 @@ db.Sequelize = Sequelize;
 db.User = User;
 db.Recruiting = Recruiting;
 db.QnA = QnA;
+db.Team = Team;
 
 User.init(sequelize);
 Recruiting.init(sequelize);
 QnA.init(sequelize);
+Team.init(sequelize);
 
 module.exports = db;
 

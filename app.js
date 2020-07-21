@@ -3,17 +3,18 @@ import express from 'express';
 import {sequelize} from './models';
 import {getHeaderListFromId} from './util/spread_sheet';
 import userRoute from './api/routes/user';
-import recruiting from './api/routes/recruiting';
-import qna from './api/routes/qna';
-
+import recruitingRoute from './api/routes/recruiting';
+import qnaRoute from './api/routes/qna';
+import teamRoute from './api/routes/team';
 
 const app = express();
 
 const PORT = 3000;
 
 app.use('/users', userRoute);
-app.use('/recruiting', recruiting);
-app.use('/qna', qna);
+app.use('/recruiting', recruitingRoute);
+app.use('/qna', qnaRoute);
+app.use('/team', teamRoute);
 
 app.get('/', (req, res) => {
   res.send('HELLo world');
