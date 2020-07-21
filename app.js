@@ -3,12 +3,14 @@ import express from 'express';
 import {sequelize} from './models';
 import {getHeaderListFromId} from './util/spread_sheet';
 import userRoute from './api/routes/user';
+import recruiting from './api/routes/recruiting';
 
 const app = express();
 
 const PORT = 3000;
 
 app.use('/users', userRoute);
+app.use('/recruiting', recruiting);
 
 app.get('/', (req, res) => {
   res.send('HELLo world');
