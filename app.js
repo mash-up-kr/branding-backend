@@ -4,6 +4,8 @@ import {sequelize} from './models';
 import {getHeaderListFromId} from './util/spread_sheet';
 import userRoute from './api/routes/user';
 import recruiting from './api/routes/recruiting';
+import qna from './api/routes/qna';
+
 
 const app = express();
 
@@ -11,6 +13,7 @@ const PORT = 3000;
 
 app.use('/users', userRoute);
 app.use('/recruiting', recruiting);
+app.use('/qna', qna);
 
 app.get('/', (req, res) => {
   res.send('HELLo world');
