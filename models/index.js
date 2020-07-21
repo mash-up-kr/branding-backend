@@ -6,6 +6,7 @@ const Recruiting = require('./recruiting');
 const QnA = require('./qna');
 const Team = require('./team');
 const Question = require('./question');
+const Applicant = require('./applicant');
 const Answer = require('./answer');
 
 const env = process.env.NODE_ENV || 'development';
@@ -22,6 +23,7 @@ db.Recruiting = Recruiting;
 db.QnA = QnA;
 db.Team = Team;
 db.Question = Question;
+db.Applicant = Applicant;
 db.Answer = Answer;
 
 User.init(sequelize);
@@ -29,6 +31,7 @@ Recruiting.init(sequelize);
 QnA.init(sequelize);
 Team.init(sequelize);
 Question.init(sequelize);
+Applicant.init(sequelize);
 Answer.init(sequelize);
 
 module.exports = db;
