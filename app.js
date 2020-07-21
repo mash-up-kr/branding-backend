@@ -10,10 +10,13 @@ import teamRoute from './api/routes/team';
 import questionRoute from './api/routes/question';
 import applicantRoute from './api/routes/applicant';
 import answerRoute from './api/routes/answer';
+import authRoute from './api/routes/auth';
 
 const app = express();
 
 const PORT = 3000;
+
+app.use(express.json());
 
 app.use('/users', userRoute);
 app.use('/recruiting', recruitingRoute);
@@ -22,10 +25,7 @@ app.use('/teams', teamRoute);
 app.use('/questions', questionRoute);
 app.use('/applicants', applicantRoute);
 app.use('/answers', answerRoute);
-
-app.get('/', (req, res) => {
-  res.send('HELLo world');
-});
+app.use('/', authRoute);
 
 app.get('/sheet', async (req, res) => {
   const testSheetId = '122TOSC-YycmW3uhK5MlwdVawSKdjVURHRwDKJZbG0kE';
