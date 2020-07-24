@@ -36,7 +36,6 @@ async function getApplicants(role) {
   return result;
 }
 
-
 async function getApplicantsByValue(role, value) {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
@@ -112,4 +111,3 @@ export {
   getApplicantsByStatus,
   getApplicantsByValue,
 }
-

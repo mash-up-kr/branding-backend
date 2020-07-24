@@ -75,6 +75,7 @@ async function findAllApplicantStatusByStatus(recruitingId, applicationStatus) {
 }
 
 export {
+  findAllApplicantStatus,
   findAllApplicantStatusByTeams,
   findAllApplicantStatusByStatus,
   findAllApplicantStatusByValue,
