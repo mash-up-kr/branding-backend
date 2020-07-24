@@ -36,7 +36,31 @@ async function getApplicants(role) {
   return result;
 }
 
+
 async function getApplicantsByValue(role, value) {
+  if(!role == ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+  
+  const latelyRecruiting = await Recruiting.findOne({
+    limit: 1,
+    order: [ [ 'id', 'DESC' ]]
+  });
+
+  const applicants = await ApplicantStatus.findAllApplicantStatusByValue(latelyRecruiting.id, value);
+  
+  const result = {
+    recruitingId : latelyRecruiting.id,
+    applicantsSize : applicants.length,
+    applicants : applicants
+  }  
+
+  return result;
+}
+
+async function getApplicantsByTeams(role, teamsId) {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -45,10 +69,33 @@ async function getApplicantsByValue(role, value) {
 
   const latelyRecruiting = await Recruiting.findOne({
     limit: 1,
-    order: [ [ 'id', 'DESC' ]]
+    order: [[ 'id', 'DESC' ]]
   });
+  
+  const applicants = await ApplicantStatus.findAllApplicantStatusByTeams(latelyRecruiting.id, teamsId);
+  
+  const result = {
+    recruitingId : latelyRecruiting.id,
+    applicantsSize : applicants.length,
+    applicants : applicants
+  }  
 
-  const applicants = await ApplicantStatus.findAllApplicantStatusByValue(latelyRecruiting.id, value);
+  return result;
+}
+
+async function getApplicantsByStatus(role, applicantionStatus) {
+  if(!role == ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const latelyRecruiting = await Recruiting.findOne({
+    limit: 1,
+    order: [[ 'id', 'DESC' ]]
+  });
+  
+  const applicants = await ApplicantStatus.findAllApplicantStatusByStatus(latelyRecruiting.id, applicantionStatus);
 
   const result = {
     recruitingId : latelyRecruiting.id,
@@ -59,8 +106,10 @@ async function getApplicantsByValue(role, value) {
   return result;
 }
 
-
 export {
   getApplicants,
-  getApplicantsByValue
+  getApplicantsByTeams,
+  getApplicantsByStatus,
+  getApplicantsByValue,
 }
+
