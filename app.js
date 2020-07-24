@@ -12,6 +12,7 @@ import questionRoute from './api/routes/question';
 import applicantRoute from './api/routes/applicant';
 import answerRoute from './api/routes/answer';
 import authRoute from './api/routes/auth';
+import applicantStatusRoute from './api/routes/applicantStatus';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(express.json());
 
 app.use('/v1/', authRoute);
 app.use('/v1/users', userRoute);
+app.use('/v1/applicant-status', authMiddleware);
+app.use('/v1/applicant-status', applicantStatusRoute);
 app.use('/v1/recruiting', authMiddleware);
 app.use('/v1/recruiting', recruitingRoute);
 app.use('/v1/qna', authMiddleware);
