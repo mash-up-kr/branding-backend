@@ -54,4 +54,8 @@ module.exports = class Applicant extends Sequelize.Model {
       tableName: 'applicants'
     })
   }
+
+  async changeStatus(applicationStatus) {
+    this.APPLICATION_STATUS = applicationStatus;
+  }
 }
