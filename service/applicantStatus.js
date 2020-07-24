@@ -36,6 +36,31 @@ async function getApplicants(role) {
   return result;
 }
 
+async function getApplicantsByTeams(role, teamsId) {
+  if(!role == ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const latelyRecruiting = await Recruiting.findOne({
+    limit: 1,
+    order: [ [ 'id', 'DESC' ]]
+  });
+
+  const applicants = await ApplicantStatus.findAllApplicantStatusByTeams(latelyRecruiting.id, teamsId);
+
+  const result = {
+    recruitingId : latelyRecruiting.id,
+    applicantsSize : applicants.length,
+    applicants : applicants
+  }  
+
+  return result;
+}
+
+
 export {
-  getApplicants
+  getApplicants,
+  getApplicantsByTeams
 }
