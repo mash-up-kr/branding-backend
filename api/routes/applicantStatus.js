@@ -19,6 +19,22 @@ router.route('/')
       next(err);
     }
   })
-  
+
+router.route('/search')
+  .get(async (req, res, next) => {
+    const {role: role} = req.decoded;
+    const value = req.query.value;
+    try {
+      const result = await applicantStatusService.getApplicantsByValue(role, value);
+      res.status('200')
+      .json({
+        success: true,
+        message: { applicantStatus : result }
+      });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
 
 module.exports = router;
