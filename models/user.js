@@ -43,4 +43,5 @@ module.exports = class User extends Sequelize.Model {
   async equalsPassword(inputPassword) {
     return await equalsEncryption(this.password, inputPassword);
   }
+
 }

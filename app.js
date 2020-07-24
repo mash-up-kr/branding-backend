@@ -4,7 +4,6 @@ import {sequelize} from './models';
 import {getHeaderListFromId} from './util/spread_sheet';
 
 import authMiddleware from './middlewares/auth';
-
 import userRoute from './api/routes/user';
 import recruitingRoute from './api/routes/recruiting';
 import qnaRoute from './api/routes/qna';
@@ -21,7 +20,6 @@ const PORT = 3001;
 app.use(express.json());
 
 app.use('/v1/', authRoute);
-
 app.use('/v1/users', userRoute);
 app.use('/v1/recruiting', authMiddleware);
 app.use('/v1/recruiting', recruitingRoute);
