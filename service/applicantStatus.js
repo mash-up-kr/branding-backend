@@ -45,7 +45,7 @@ async function getApplicantsByValue(role, value) {
   
   const latelyRecruiting = await Recruiting.findOne({
     limit: 1,
-    order: [ [ 'id', 'DESC' ]]
+    order: [[ 'id', 'DESC' ]]
   });
 
   const applicants = await ApplicantStatus.findAllApplicantStatusByValue(latelyRecruiting.id, value);
