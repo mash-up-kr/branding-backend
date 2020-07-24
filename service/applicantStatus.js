@@ -2,6 +2,7 @@ const ROLE = require("../models/role");
 const Recruiting = require('../models/recruiting');
 const Team = require('../models/team');
 const ApplicantStatus = require('../models/applicantStatus');
+const ApplicantionStatus = require('../models/applicationStatus');
 
 async function getApplicants(role) {
   if(!role == ROLE.ADMIN) {
@@ -28,7 +29,8 @@ async function getApplicants(role) {
     recruitingId : latelyRecruiting.id,
     teams : teams,
     applicantsSize : applicants.length,
-    applicants : applicants
+    applicants : applicants,
+    applicantionStatus : ApplicantionStatus
   }  
 
   return result;
