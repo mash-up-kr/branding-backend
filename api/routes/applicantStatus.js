@@ -36,6 +36,5 @@ router.route('/status')
       next(err);
     }
   })
-  
 
 module.exports = router;

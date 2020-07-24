@@ -35,6 +35,7 @@ async function findAllApplicantStatusByStatus(recruitingId, applicationStatus) {
   
   return results;
 }
+
 export {
   findAllApplicantStatus, findAllApplicantStatusByStatus
 }
