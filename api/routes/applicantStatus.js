@@ -37,4 +37,21 @@ router.route('/teams/:teamsId')
     }
   })
 
+router.route('/status')
+  .get(async (req, res, next) => {
+    const applicantionStatus = req.query.status;
+    const {role: role} = req.decoded;
+    try {
+      const result = await applicantStatusService.getApplicantsByStatus(role, applicantionStatus);
+      res.status('200')
+      .json({
+        success: true,
+        message: { applicantStatus : result }
+      });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
+
 module.exports = router;
