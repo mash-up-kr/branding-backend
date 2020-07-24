@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const ROLE = require("./role");
+import { equalsEncryption } from '../util/password_encryption';
 
 module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
@@ -38,4 +39,9 @@ module.exports = class User extends Sequelize.Model {
       tableName: 'users'
     })
   }
+
+  async equalsPassword(inputPassword) {
+    return await equalsEncryption(this.password, inputPassword);
+  }
+
 }
