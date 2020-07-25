@@ -22,19 +22,12 @@ app.use(express.json());
 
 app.use('/v1/', authRoute);
 app.use('/v1/users', userRoute);
-app.use('/v1/applicant-status', authMiddleware);
 app.use('/v1/applicant-status', applicantStatusRoute);
-app.use('/v1/recruiting', authMiddleware);
 app.use('/v1/recruiting', recruitingRoute);
-app.use('/v1/qna', authMiddleware);
 app.use('/v1/qna', qnaRoute);
-app.use('/v1/teams', authMiddleware);
 app.use('/v1/teams', teamRoute);
-app.use('/v1/questions', authMiddleware);
 app.use('/v1/questions', questionRoute);
-app.use('/v1/applicants', authMiddleware);
 app.use('/v1/applicants', applicantRoute);
-app.use('/v1/answers', authMiddleware);
 app.use('/v1/answers', answerRoute);
 
 app.use((req, res, next) => {
