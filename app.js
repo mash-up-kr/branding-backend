@@ -1,7 +1,7 @@
 import express from 'express';
 
 import {sequelize} from './models';
-import {getHeaderListFromId} from './util/spread_sheet';
+import {getHeaderList} from './util/spreadsheet';
 
 import authMiddleware from './middlewares/auth';
 import userRoute from './api/routes/user';
@@ -50,7 +50,7 @@ app.use(function(err, req, res, next) {
 
 app.get('/sheet', async (req, res) => {
   const testSheetId = '122TOSC-YycmW3uhK5MlwdVawSKdjVURHRwDKJZbG0kE';
-  res.send(await getHeaderListFromId(testSheetId));
+  res.send(await getHeaderList(testSheetId));
 });
 
 app.listen(PORT, () => {
