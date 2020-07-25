@@ -16,22 +16,24 @@ async function getApplicants(role) {
     order: [ [ 'id', 'DESC' ]]
   });
 
-  const teams = await Team.findAll({
-    attributes: ['id', 'name'],
-    where: {
-      recruiting_id : latelyRecruiting.id,
-    }
-  })
+  // const teams = await Team.findAll({
+  //   attributes: ['id', 'name'],
+  //   where: {
+  //     recruiting_id : latelyRecruiting.id,
+  //   }
+  // })
 
-  const applicants = await ApplicantStatus.findAllApplicantStatus(latelyRecruiting.id);
+  // const applicants = await ApplicantStatus.findAllApplicantStatus(latelyRecruiting.id);
+  const applicants = await ApplicantStatus.findAllApplicants(latelyRecruiting.id);
 
-  const result = {
-    recruitingId : latelyRecruiting.id,
-    teams : teams,
-    applicantsSize : applicants.length,
-    applicants : applicants,
-    applicantionStatus : ApplicantionStatus
-  }  
+  // const result = {
+  //   recruitingId : latelyRecruiting.id,
+  //   teams : teams,
+  //   applicantsSize : applicants.length,
+  //   applicants : applicants,
+  //   applicantionStatus : ApplicantionStatus
+  // }
+  const result = applicants;
 
   return result;
 }

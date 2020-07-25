@@ -15,8 +15,11 @@ async function updateQuestion(target, headerList) {
     });
 
     list.push(result);
+    console.log(result);
 
   }
+
+  // console.log(list);
 
   return list;
 }
