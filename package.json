@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "google-spreadsheet": "^3.0.11",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.3"
