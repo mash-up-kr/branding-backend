@@ -12,22 +12,9 @@ const spreadsheetUtil = require('../../util/spreadsheet');
 const router = express.Router();
 
 router.route('/')
-  .get(async (req, res, next) => {
-    try {
-      const result = await applicantStatusService.getApplicants('ADMIN');
-      res.status('200')
-        .json({
-          data: result,
-        });
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  });
-
-router.route('/update')
 .get(async (req, res) => {
 
+  console.log('asdfsdf');
   const teams = await teamService.getTeams();
 
 
@@ -85,7 +72,12 @@ router.route('/update')
       }
     }
 
-    res.status(200).send({});
+    // res.status(200).send({});
+    const result222 = await applicantStatusService.getApplicants('ADMIN');
+    res.status('200')
+    .json({
+      data: result222,
+    });
 
     // for (let j = 0; j < dataList.length; j++) {
     //   const qId = updateQuestionResult[j].getDataValue('id');
@@ -108,6 +100,22 @@ router.route('/update')
 
   // console.log(targetList);
 });
+
+// router.route('/')
+//   .get(async (req, res, next) => {
+//     try {
+//       const result = await applicantStatusService.getApplicants('ADMIN');
+//       res.status('200')
+//         .json({
+//           data: result,
+//         });
+//     } catch (err) {
+//       console.error(err);
+//       next(err);
+//     }
+//   });
+
+
 
 router.route('/:id')
   .get(async (req, res, next) => {
