@@ -13,7 +13,7 @@ import applicantRoute from './api/routes/applicant';
 import answerRoute from './api/routes/answer';
 import authRoute from './api/routes/auth';
 import applicantStatusRoute from './api/routes/applicantStatus';
-import {createGetApplicantsMock} from './util/mocker';
+import {createGetApplicantsMock, getApplicantFromId} from './util/mocker';
 
 const app = express();
 
@@ -27,6 +27,9 @@ app.get('/v1/applicants', async (req, res) => {
   res.status(200).send(createGetApplicantsMock());
 });
 
+app.get('/v1/applicants/:id', async (req, res) => {
+  res.status(200).send(getApplicantFromId(req.params.id));
+});
 
 app.use('/v1/', authRoute);
 app.use('/v1/users', userRoute);

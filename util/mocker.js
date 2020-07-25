@@ -103,6 +103,18 @@ function getApplicantFromId(id) {
       'phone': '010-1234-5678',
       'timestamp': 1595686254,
       'status': 'APPLICATION_COMPLETION',
+      'qna_list': [
+        {
+          'number': 1,
+          'question': '김주성씨는 천재 프로덕트 디자이너신가요?',
+          'answer': '네'
+        },
+        {
+          'number': 2,
+          'question': '김주성씨는 천재 웹 개발자신가요?',
+          'answer': '네'
+        }
+      ],
     },
     2: {
       'id': 2,
@@ -115,6 +127,17 @@ function getApplicantFromId(id) {
       'phone': '010-1234-5678',
       'timestamp': 1595686254,
       'status': 'DOCUMENT_PASS',
+      'qna_list': [{
+          'number': 1,
+          'question': '김주성씨는 천재 프로덕트 디자이너신가요?',
+          'answer': '네'
+        },
+        {
+          'number': 2,
+          'question': '김주성씨는 천재 웹 개발자신가요?',
+          'answer': '네'
+        }
+      ],
     },
     3: {
       'id': 3,
@@ -127,6 +150,17 @@ function getApplicantFromId(id) {
       'phone': '010-1234-5678',
       'timestamp': 1595686254,
       'status': 'DOCUMENT_PASS',
+      'qna_list': [{
+          'number': 1,
+          'question': '김주성씨는 천재 프로덕트 디자이너신가요?',
+          'answer': '네'
+        },
+        {
+          'number': 2,
+          'question': '김주성씨는 천재 웹 개발자신가요?',
+          'answer': '네'
+        }
+      ],
     },
     4: {
       'id': 4,
@@ -139,6 +173,17 @@ function getApplicantFromId(id) {
       'phone': '010-1234-5678',
       'timestamp': 1595686254,
       'status': 'DOCUMENT_PASS',
+      'qna_list': [{
+          'number': 1,
+          'question': '김주성씨는 천재 프로덕트 디자이너신가요?',
+          'answer': '네'
+        },
+        {
+          'number': 2,
+          'question': '김주성씨는 천재 웹 개발자신가요?',
+          'answer': '네'
+        }
+      ],
     },
     5: {
       'id': 5,
@@ -151,8 +196,20 @@ function getApplicantFromId(id) {
       'phone': '010-1234-5678',
       'timestamp': 1595686254,
       'status': 'DOCUMENT_PASS',
+      'qna_list': [{
+          'number': 1,
+          'question': '김주성씨는 천재 프로덕트 디자이너신가요?',
+          'answer': '네'
+        },
+        {
+          'number': 2,
+          'question': '김주성씨는 천재 웹 개발자신가요?',
+          'answer': '네'
+        }
+      ],
     },
   };
+  return data[id];
 }
 
 export {
