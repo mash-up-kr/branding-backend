@@ -13,12 +13,20 @@ import applicantRoute from './api/routes/applicant';
 import answerRoute from './api/routes/answer';
 import authRoute from './api/routes/auth';
 import applicantStatusRoute from './api/routes/applicantStatus';
+import {createGetApplicantsMock} from './util/mocker';
 
 const app = express();
 
 const PORT = 3001;
 
 app.use(express.json());
+
+// For frontend test
+// TODO: Delete this code
+app.get('/v1/applicants', async (req, res) => {
+  res.status(200).send(createGetApplicantsMock());
+});
+
 
 app.use('/v1/', authRoute);
 app.use('/v1/users', userRoute);
