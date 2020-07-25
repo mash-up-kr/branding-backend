@@ -11,12 +11,14 @@ async function getSheet(sheetId) {
   return doc.sheetsByIndex[0];
 }
 
-async function getHeaders(sheetId) {
+async function getHeaderList(sheetId) {
   const sheet = await getSheet(sheetId);
   await sheet.loadHeaderRow();
   return sheet.headerValues;
 }
 
+
+
 export {
-  getHeaders,
+  getHeaderList,
 };
