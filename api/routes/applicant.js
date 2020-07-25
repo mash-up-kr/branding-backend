@@ -23,25 +23,10 @@ router.route('/')
       console.error(err);
       next(err);
     }
-  })
+  });
 
-router.route('/:id')
-  .get(async (req, res, next) => {
-    try {
-      console.log(req.params.id);
-      const result = await applicantResumeService.getApplicant(req.params.id);
-      res.status('200')
-        .json({
-          data: result,
-        });
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  })
-
-router.route('/')
-.put(async (req, res) => {
+router.route('/update')
+.get(async (req, res) => {
 
   const teams = await teamService.getTeams();
 
@@ -123,6 +108,23 @@ router.route('/')
 
   // console.log(targetList);
 });
+
+router.route('/:id')
+  .get(async (req, res, next) => {
+    try {
+      console.log(req.params.id);
+      const result = await applicantResumeService.getApplicant(req.params.id);
+      res.status('200')
+        .json({
+          data: result,
+        });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
+
+
 
 //
 // router.route('/')
