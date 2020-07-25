@@ -2,6 +2,8 @@
 const express = require('express');
 const applicantResume = require('../../service/applicantResume');
 const applicantService = require('../../service/applicant');
+const applicantStatusService = require('../../service/applicantStatus');
+const applicantResumeService = require('../../service/applicantResume');
 const teamService = require('../../service/team');
 const answerService = require('../../service/answer');
 const questionService = require('../../service/question');
@@ -10,7 +12,36 @@ const spreadsheetUtil = require('../../util/spreadsheet');
 const router = express.Router();
 
 router.route('/')
-.get(async (req, res) => {
+  .get(async (req, res, next) => {
+    try {
+      const result = await applicantStatusService.getApplicants('ADMIN');
+      res.status('200')
+        .json({
+          data: result,
+        });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
+
+router.route('/:id')
+  .get(async (req, res, next) => {
+    try {
+      console.log(req.params.id);
+      const result = await applicantResumeService.getApplicant(req.params.id);
+      res.status('200')
+        .json({
+          data: result,
+        });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
+
+router.route('/')
+.put(async (req, res) => {
 
   const teams = await teamService.getTeams();
 
@@ -69,7 +100,7 @@ router.route('/')
       }
     }
 
-    res.send('asd');
+    res.status(200).send({});
 
     // for (let j = 0; j < dataList.length; j++) {
     //   const qId = updateQuestionResult[j].getDataValue('id');

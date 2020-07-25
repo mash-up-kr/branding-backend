@@ -16,6 +16,10 @@ module.exports = class Question extends Sequelize.Model {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      number: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       create_time: {
         type: Sequelize.DATE,
         allowNull: false,
