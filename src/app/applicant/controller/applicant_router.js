@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const applicant = require('./applicant.controller');
+const applicant = require('./applicant_controller');
 
 router.get('/', applicant.getApplicantFromSheet);
 router.get('/:id', applicant.getResume)

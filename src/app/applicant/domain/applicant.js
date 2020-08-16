@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const APPLICATION_STATUS = require("./applicationStatus");
+const APPLICATION_STATUS = require("./application_status");
 
 module.exports = class Applicant extends Sequelize.Model {
   static init(sequelize) {

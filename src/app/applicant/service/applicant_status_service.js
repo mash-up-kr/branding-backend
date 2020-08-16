@@ -1,5 +1,5 @@
 const ROLE = require("../../../common/model/role");
-const applicantStatusRepository = require('../infrastructure/applicantStatus.repository');
+const applicantStatusRepository = require('../infrastructure/applicant_status_repository');
 const Recruiting = require('../../recruitment/recruiting');
 const Team = require('../../team/team');
 

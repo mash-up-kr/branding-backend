@@ -1,4 +1,4 @@
-const resumeRepository = require('../infrastructure/resume.repository');
+const resumeRepository = require('../infrastructure/resume_repository');
 const ROLE = require("../../../common/model/sequelize");
 
 async function getResume(role, applicantId) {

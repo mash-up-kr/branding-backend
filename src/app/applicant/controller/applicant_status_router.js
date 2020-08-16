@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const applicantSatuts = require('./applicantStatus.controller')
+const applicantSatuts = require('./applicant_status_controller')
 
 router.get('/', applicantSatuts.getApplicants);
 router.get('/search', applicantSatuts.searchByValue);

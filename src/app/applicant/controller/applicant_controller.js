@@ -1,10 +1,10 @@
 
-const resumeService = require('../service/resume.service');
-const applicantService = require('../service/applicant.service');
-const applicantStatusService = require('../service/applicantStatus.service');
-const teamService = require('../../team/team.service');
-const answerService = require('../service/answer.service');
-const questionService = require('../service/question.service');
+const resumeService = require('../service/resume_service');
+const applicantService = require('../service/applicant_service');
+const applicantStatusService = require('../service/applicant_status_service');
+const teamService = require('../../team/team_service');
+const answerService = require('../service/answer_service');
+const questionService = require('../service/question_service');
 const spreadsheetUtil = require('../../../util/spreadsheet');
 
 exports.getResume = async (req, res, next) => {
