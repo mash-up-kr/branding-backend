@@ -1,10 +1,12 @@
 const Question = require('../domain/question.js');
 
-async function clearQuestion() {
-  await Question.destroy({where: {}, force: true});
-}
+const clearQuestion = async () => {
+  const result = await Question.destroy({where: {}, force: true});
 
-async function updateQuestion(target, headerList) {
+  return result;
+};
+
+const updateQuestion = async (target, headerList) => {
   const list = [];
 
   for (let i = 0; i < headerList.length; i++) {
@@ -15,16 +17,12 @@ async function updateQuestion(target, headerList) {
     });
 
     list.push(result);
-    console.log(result);
-
   }
 
-  // console.log(list);
-
   return list;
-}
+};
 
-export {
+module.exports = {
   clearQuestion,
   updateQuestion,
 };

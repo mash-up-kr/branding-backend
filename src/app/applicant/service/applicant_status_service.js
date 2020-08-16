@@ -3,7 +3,7 @@ const applicantStatusRepository = require('../infrastructure/applicant_status_re
 const Recruiting = require('../../recruitment/recruiting.js');
 const Team = require('../../team/team.js');
 
-async function getApplicants(role) {
+const getApplicants = async role => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -20,38 +20,38 @@ async function getApplicants(role) {
     where: {
       recruiting_id : latelyRecruiting.id,
     }
-  })
+  });
 
   const applicants = await applicantStatusRepository.findAllApplicants(latelyRecruiting.id);
 
   const applicantsLength = applicants.length;
 
   const parsedApplicants = applicants.map(item => ({
-      id: item.id,
-      team: {
-        id: item.teams_id,
-        name: item.teams_name,
-      },
-      name: item.name,
-      email: item.email,
-      phone: item.phone,
-      timestamp: Math.floor(item.application_time / 1000),
-      status: item.application_status,
-    }));
+    id: item.id,
+    team: {
+      id: item.teams_id,
+      name: item.teams_name,
+    },
+    name: item.name,
+    email: item.email,
+    phone: item.phone,
+    timestamp: Math.floor(item.application_time / 1000),
+    status: item.application_status,
+  }));
 
   const timestamp = Math.floor(Date.now() / 1000);
 
   const result = {
-      team_list: teams,
-      applicant_list_length: applicantsLength,
-      applicant_list: parsedApplicants,
-      timestamp: timestamp,
-    }
+    team_list: teams,
+    applicant_list_length: applicantsLength,
+    applicant_list: parsedApplicants,
+    timestamp: timestamp,
+  };
 
   return result;
-}
+};
 
-async function getApplicantsByValue(role, value) {
+const getApplicantsByValue = async (role, value) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -69,12 +69,12 @@ async function getApplicantsByValue(role, value) {
     recruitingId : latelyRecruiting.id,
     applicantsSize : applicants.length,
     applicants : applicants
-  }  
+  };
 
   return result;
-}
+};
 
-async function getApplicantsByTeams(role, teamsId) {
+const getApplicantsByTeams = async (role, teamsId) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -92,12 +92,12 @@ async function getApplicantsByTeams(role, teamsId) {
     recruitingId : latelyRecruiting.id,
     applicantsSize : applicants.length,
     applicants : applicants
-  }  
+  };
 
   return result;
-}
+};
 
-async function getApplicantsByStatus(role, applicantionStatus) {
+const getApplicantsByStatus = async (role, applicantionStatus) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -115,14 +115,14 @@ async function getApplicantsByStatus(role, applicantionStatus) {
     recruitingId : latelyRecruiting.id,
     applicantsSize : applicants.length,
     applicants : applicants
-  }  
+  };
 
   return result;
-}
+};
 
-export {
+module.exports = {
   getApplicants,
+  getApplicantsByValue,
   getApplicantsByTeams,
   getApplicantsByStatus,
-  getApplicantsByValue,
-}
+};

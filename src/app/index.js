@@ -1,17 +1,17 @@
 const spreadsheet = require('../util/spreadsheet.js');
 
-const router = require('express').Router()
-const applicant = require('./applicant/controller/applicant_router.js');
-const applicantStatus = require('./applicant/controller/applicant_status_router.js');
-const auth = require('../app/user/controller.js');
+const router = require('express').Router();
+const applicantRouter = require('./applicant/controller/applicant_router.js');
+const applicantStatusRouter = require('./applicant/controller/applicant_status_router.js');
+const authRouter = require('./user/controller/auth_router.js');
 const authMiddleware = require('../common/auth/auth.js');
 
 
-router.use('/', auth);
+router.use('/', authRouter);
 router.use('/applicants', authMiddleware);
-router.use('/applicants', applicant);
+router.use('/applicants', applicantRouter);
 router.use('/applicant-status', authMiddleware);
-router.use('/applicant-status', applicantStatus);
+router.use('/applicant-status', applicantStatusRouter);
 
 router.use((req, res, next) => {
   const error =  new Error('Bad Request');
@@ -29,4 +29,4 @@ router.get('/sheet', async (req, res) => {
   res.send(await spreadsheet.getHeaderList(testSheetId));
 });
 
-module.exports = router
+module.exports = router;

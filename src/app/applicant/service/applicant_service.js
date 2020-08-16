@@ -1,14 +1,15 @@
-const ROLE = require("../../../common/model/role.js");
-const db = require('../../../common/model/sequelize.js');
 const Applicant = require('../domain/applicant.js');
 const APPLICATION_STATUS = require("../domain/application_status.js");
+const db = require('../../../common/model/sequelize.js');
+const ROLE = require("../../../common/model/role.js");
 
-async function clearApplicants() {
-  await Applicant.destroy({where: {}});
-}
+const clearApplicants = async () => {
+  const result = await Applicant.destroy({where: {}});
 
-async function updateApplicant(obj) {
+  return result;
+};
 
+const updateApplicant = async obj => {
   const result = await Applicant.create({
     teams_id: obj.teams_id,
     application_status: APPLICATION_STATUS.APPLICATION_COMPLETION,
@@ -18,9 +19,9 @@ async function updateApplicant(obj) {
   });
 
   return result;
-}
+};
 
-async function changeStatus(role, applicantId, applicantionStatus) {
+const changeStatus = async (role, applicantId, applicantionStatus) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -35,12 +36,10 @@ async function changeStatus(role, applicantId, applicantionStatus) {
 
   await applicant.update({ application_status:applicantionStatus, update_time: Date.now() });
 
-  return {
-    applicant : applicant
-  }
-}
+  return {applicant};
+};
 
-async function changeListStatus(role, applicantIds, applicantionStatus) {
+const changeListStatus = async (role, applicantIds, applicantionStatus) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -68,14 +67,12 @@ async function changeListStatus(role, applicantIds, applicantionStatus) {
     await t.rollback();
   }
 
-  return {
-    applicants : applicants
-  }
-}
+  return {applicants};
+};
 
-export {
+module.exports = {
   clearApplicants,
   updateApplicant,
-  changeListStatus,
   changeStatus,
-}
+  changeListStatus,
+};

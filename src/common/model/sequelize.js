@@ -1,4 +1,3 @@
-
 const path = require('path');
 const Sequelize = require('sequelize');
 const QnA = require('../../app/recruitment/qna.js');
@@ -35,5 +34,3 @@ Applicant.init(sequelize);
 Answer.init(sequelize);
 
 module.exports = db;
-
-

@@ -1,19 +1,22 @@
 const Answer = require('../domain/answer.js');
 
-async function clearAnswers() {
-  await Answer.destroy({where: {}});
-}
+const clearAnswers = async () => {
+  const result = await Answer.destroy({where: {}});
 
-async function updateAnswer(qId, applicantId, content) {
-  await Answer.create({
+  return result;
+};
+
+const updateAnswer = async (qId, applicantId, content) => {
+  const result = await Answer.create({
     questions_id: qId,
     applicants_id: applicantId,
     content: content
-  })
+  });
 
-}
+  return result;
+};
 
-export {
+module.exports = {
   clearAnswers,
   updateAnswer,
 };

@@ -1,7 +1,7 @@
 const resumeRepository = require('../infrastructure/resume_repository.js');
 const ROLE = require("../../../common/model/sequelize.js");
 
-async function getResume(role, applicantId) {
+const getResume = async (role, applicantId) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
@@ -16,7 +16,7 @@ async function getResume(role, applicantId) {
       number: resumeTemp[i].number,
       question: resumeTemp[i].question,
       answer: resumeTemp[i].answer
-    })
+    });
   }
 
   const result = {
@@ -31,11 +31,11 @@ async function getResume(role, applicantId) {
     status: resumeTemp[0].application_status,
     timestamp: Math.floor(resumeTemp[0].application_time / 1000),
     qna_list: arr
-  }
+  };
 
   return result;
-}
+};
 
-export {
+module.exports = {
   getResume,
-}
+};

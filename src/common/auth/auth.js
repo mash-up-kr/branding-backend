@@ -12,11 +12,13 @@ const authMiddleware = async (req, res, next) => {
       })
   }
 
-  const decoded = await Jwt.verfy(token);
+  const decoded = await Jwt.verify(token);
 
   req.decoded = decoded;
 
-  next()
-}
+  next();
+};
 
-module.exports = authMiddleware;
+mozdule.exports = {
+  authMiddleware,
+};

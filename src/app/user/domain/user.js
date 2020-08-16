@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const ROLE = require('../../../common/model/role.js');
 const passwordEncryption = require('../../../util/password_encryption.js');
 
-module.exports = class User extends Sequelize.Model {
+class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
@@ -43,5 +43,6 @@ module.exports = class User extends Sequelize.Model {
   async equalsPassword(inputPassword) {
     return await passwordEncryption.equalsEncryption(this.password, inputPassword);
   }
-
 }
+
+module.exports = new User();

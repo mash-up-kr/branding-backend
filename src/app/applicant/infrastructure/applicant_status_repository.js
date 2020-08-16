@@ -1,6 +1,6 @@
 const db = require('../../../common/model/sequelize.js');
 
-async function findAllApplicants(recruitingId) {
+const findAllApplicants = async recruitingId => {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time
                   FROM teams as t JOIN applicants as a 
                       ON t.id = a.teams_id
@@ -15,9 +15,9 @@ async function findAllApplicants(recruitingId) {
     });
   
   return results;
-}
+};
 
-async function findAllApplicantStatusByValue(recruitingId, value) {
+const findAllApplicantStatusByValue = async (recruitingId, value) => {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time
                   FROM teams as t JOIN applicants as a 
                       ON t.id = a.teams_id
@@ -33,9 +33,9 @@ async function findAllApplicantStatusByValue(recruitingId, value) {
     });
   
   return results;
-}
+};
 
-async function findAllApplicantStatusByTeams(recruitingId, teamsId) {
+const findAllApplicantStatusByTeams = async (recruitingId, teamsId) => {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time
                   FROM teams as t JOIN applicants as a 
                       ON t.id = a.teams_id
@@ -52,10 +52,9 @@ async function findAllApplicantStatusByTeams(recruitingId, teamsId) {
     });
   
   return results;
-}
+};
 
-
-async function findAllApplicantStatusByStatus(recruitingId, applicationStatus) {
+const findAllApplicantStatusByStatus = async (recruitingId, applicationStatus) => {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time
                   FROM teams as t JOIN applicants as a 
                       ON t.id = a.teams_id
@@ -72,11 +71,11 @@ async function findAllApplicantStatusByStatus(recruitingId, applicationStatus) {
     });
   
   return results;
-}
+};
 
-export {
+module.exports = {
   findAllApplicants,
+  findAllApplicantStatusByValue,
   findAllApplicantStatusByTeams,
   findAllApplicantStatusByStatus,
-  findAllApplicantStatusByValue,
-}
+};

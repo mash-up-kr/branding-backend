@@ -1,6 +1,6 @@
 const db = require('../../../common/model/sequelize.js');
 
-async function findOneResume(applicantId) {
+const findOneResume = async applicantId => {
   const query = `SELECT a.id, t.name as teams_name, a.name, 
                   a.email, a.phone, a.application_status, a.application_time,
                   q.content as question, q.number, n.content as answer
@@ -22,9 +22,9 @@ async function findOneResume(applicantId) {
     });
   
   return results;
-}
+};
 
-async function findOneApplicant(applicantId) {
+const findOneApplicant = async applicantId => {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, 
                   a.email, a.phone, a.application_status, a.application_time,
                   q.content as question, q.number, n.content as answer
@@ -47,9 +47,9 @@ async function findOneApplicant(applicantId) {
     });
 
   return results;
-}
+};
 
-export {
+module.exports = {
   findOneResume,
   findOneApplicant,
-}
+};

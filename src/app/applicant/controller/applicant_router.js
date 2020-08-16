@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const applicant = require('./applicant_controller.js');
 
-router.get('/', applicant.getApplicantFromSheet);
-router.get('/:id', applicant.getResume)
-router.patch('/:id', applicant.changeSatuts);
-router.patch('/', applicant.changeListSatuts);
+const applicantController = require('./applicant_controller.js');
 
-module.exports = router
+router.get('/', applicantController.getApplicantFromSheet);
+router.get('/:id', applicantController.getResume)
+router.patch('/:id', applicantController.changeStatus);
+router.patch('/', applicantController.changeListStatus);
+
+module.exports = router;

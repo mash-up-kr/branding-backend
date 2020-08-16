@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
+
 const APPLICATION_STATUS = require("./application_status.js");
 
-module.exports = class Applicant extends Sequelize.Model {
+class Applicant extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
@@ -59,3 +60,5 @@ module.exports = class Applicant extends Sequelize.Model {
     this.APPLICATION_STATUS = applicationStatus;
   }
 }
+
+module.exports = new Applicant();

@@ -1,20 +1,20 @@
-import serviceAccount from '../../config/mash-up-admin-dev-8deb0d42c2ef.json'; // https://www.notion.so/a23e6ac78eba4fd7a330b5db4c9e27c7
-import {GoogleSpreadsheet, GoogleSpreadsheetWorksheet} from 'google-spreadsheet';
-import moment from 'moment';
+const serviceAccount = require('../../config/mash-up-admin-dev-8deb0d42c2ef.json');
+const {GoogleSpreadsheet,GoogleSpreadsheetWorksheet} = require('google-spreadsheet');
+const moment = require('moment');
 
-function fillZero(number, width) {
+const fillZero = (number, width) => {
   number = number + '';
   return number.length >= width ?
       number :
       new Array(width - number.length + 1).join('0') + number;
-}
+};
 
 /**
  * @description Convert '2020. 7. 25 오후 11:10:54' to unix time stamp
  * @param {string} stringTimeStamp
  * @returns {number}
  */
-function convertStringToUnixTimeStamp(stringTimeStamp) {
+const convertStringToUnixTimeStamp = stringTimeStamp => {
   if (!stringTimeStamp) {
     throw Error('Need string time stamp');
   }
@@ -34,13 +34,13 @@ function convertStringToUnixTimeStamp(stringTimeStamp) {
       `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`,
       'YYYY-MM-DD HH:mm"ss');
   return momentTime.valueOf();
-}
+};
 
 /**
  * @param {string} sheetId
  * @returns {Promise<GoogleSpreadsheetWorksheet>}
  */
-async function getSheet(sheetId) {
+const getSheet = async sheetId => {
   const doc = new GoogleSpreadsheet(sheetId);
   const authErr = await doc.useServiceAccountAuth(serviceAccount); // TODO(sanghee): 매번 인증이 아닌 한번만 인증할 수 있는 방법
   if (authErr) {
@@ -48,17 +48,17 @@ async function getSheet(sheetId) {
   }
   await doc.loadInfo();
   return doc.sheetsByIndex[0];
-}
+};
 
 /**
  * @param {string} sheetId
  * @returns {Promise<[string]>}
  */
-async function getHeaderList(sheetId) {
+const getHeaderList = async sheetId => {
   const sheet = await getSheet(sheetId);
   await sheet.loadHeaderRow();
   return sheet.headerValues;
-}
+};
 
 /**
  * @param {string} sheetId
@@ -66,7 +66,7 @@ async function getHeaderList(sheetId) {
  * @param {number} [to=-1]
  * @returns {Promise<[(number|string)]>}
  */
-async function getDataList(sheetId, from = 1, to = -1) {
+const getDataList = async (sheetId, from = 1, to = -1) => {
   const sheet = await getSheet(sheetId);
   const rowList = await sheet.getRows(
       {
@@ -93,9 +93,9 @@ async function getDataList(sheetId, from = 1, to = -1) {
     dataList.push(data);
   }
   return dataList;
-}
+};
 
-export {
+module.exports = {
   getHeaderList,
   getDataList,
 };

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Answer extends Sequelize.Model {
+class Answer extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       questions_id: {
@@ -32,3 +32,5 @@ module.exports = class Answer extends Sequelize.Model {
     })
   }
 }
+
+module.exports = new Answer();

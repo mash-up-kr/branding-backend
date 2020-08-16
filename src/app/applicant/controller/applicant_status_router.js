@@ -1,9 +1,10 @@
-const router = require('express').Router()
-const applicantSatuts = require('./applicant_status_controller.js')
+const router = require('express').Router();
 
-router.get('/', applicantSatuts.getApplicants);
-router.get('/search', applicantSatuts.searchByValue);
-router.get('/teams/:teamsId', applicantSatuts.searchByTeam);
-router.get('/status', applicantSatuts.searchBySatus);
+const applicantStatus = require('./applicant_status_controller.js');
 
-module.exports = router
+router.get('/', applicantStatus.getApplicants);
+router.get('/search', applicantStatus.searchByValue);
+router.get('/teams/:teamsId', applicantStatus.searchByTeam);
+router.get('/status', applicantStatus.searchByStatus);
+
+module.exports = router;
