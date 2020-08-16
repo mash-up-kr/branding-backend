@@ -1,4 +1,4 @@
-const Jwt = require('../../util/jwt');
+const Jwt = require('../../util/jwt.js');
 const JwtConfig = require('../../../config/jwt-config.json');
 
 const authMiddleware = async (req, res, next) => {

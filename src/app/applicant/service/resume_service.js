@@ -1,5 +1,5 @@
-const resumeRepository = require('../infrastructure/resume_repository');
-const ROLE = require("../../../common/model/sequelize");
+const resumeRepository = require('../infrastructure/resume_repository.js');
+const ROLE = require("../../../common/model/sequelize.js");
 
 async function getResume(role, applicantId) {
   if(!role == ROLE.ADMIN) {

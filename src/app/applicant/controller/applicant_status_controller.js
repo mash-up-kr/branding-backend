@@ -1,4 +1,4 @@
-const applicantStatusService = require('../service/applicant_status_service');
+const applicantStatusService = require('../service/applicant_status_service.js');
 
 exports.getApplicants = async (req, res, next) => {
     const {role: role} = req.decoded;

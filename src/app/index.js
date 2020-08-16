@@ -1,10 +1,10 @@
-const spreadsheet = require('../util/spreadsheet');
+const spreadsheet = require('../util/spreadsheet.js');
 
 const router = require('express').Router()
-const applicant = require('./applicant/controller/applicant_router');
-const applicantStatus = require('./applicant/controller/applicant_status_router');
-const auth = require('../app/user/controller');
-const authMiddleware = require('../common/auth/auth');
+const applicant = require('./applicant/controller/applicant_router.js');
+const applicantStatus = require('./applicant/controller/applicant_status_router.js');
+const auth = require('../app/user/controller.js');
+const authMiddleware = require('../common/auth/auth.js');
 
 
 router.use('/', auth);

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const ROLE = require('../../../common/model/role');
-const passwordEncryption = require('../../../util/password_encryption');
+const ROLE = require('../../../common/model/role.js');
+const passwordEncryption = require('../../../util/password_encryption.js');
 
 module.exports = class User extends Sequelize.Model {
   static init(sequelize) {

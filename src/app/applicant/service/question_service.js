@@ -1,4 +1,4 @@
-const Question = require('../domain/question');
+const Question = require('../domain/question.js');
 
 async function clearQuestion() {
   await Question.destroy({where: {}, force: true});

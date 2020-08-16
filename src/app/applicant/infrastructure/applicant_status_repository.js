@@ -1,4 +1,4 @@
-const db = require('../../../common/model/sequelize');
+const db = require('../../../common/model/sequelize.js');
 
 async function findAllApplicants(recruitingId) {
   const query = `SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time

@@ -1,4 +1,4 @@
-const authService = require('../service/auth.service');
+const authService = require('../service/auth_service.js');
 
 
 exports.signIn = async (req, res, next) => {

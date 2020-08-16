@@ -1,5 +1,5 @@
-const User = require('../domain/user');
-const jwt = require('../../../util/jwt');
+const User = require('../domain/user.js');
+const jwt = require('../../../util/jwt.js');
 
 async function signIn(userId, password) {
     const user = await User.findOne({

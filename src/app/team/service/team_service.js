@@ -1,4 +1,4 @@
-const Team = require('./team');
+const Team = require('../domain/team.js');
 
 async function getTeams() {
   const teams = await Team.findAll();

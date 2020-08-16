@@ -1,4 +1,4 @@
-import serviceAccount from '../../config/mash-up-admin-dev-8deb0d42c2ef'; // https://www.notion.so/a23e6ac78eba4fd7a330b5db4c9e27c7
+import serviceAccount from '../../config/mash-up-admin-dev-8deb0d42c2ef.json'; // https://www.notion.so/a23e6ac78eba4fd7a330b5db4c9e27c7
 import {GoogleSpreadsheet, GoogleSpreadsheetWorksheet} from 'google-spreadsheet';
 import moment from 'moment';
 

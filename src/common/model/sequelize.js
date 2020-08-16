@@ -1,13 +1,13 @@
 
 const path = require('path');
 const Sequelize = require('sequelize');
-const QnA = require('../../app/recruitment/qna');
-const Team = require('../../app/team/team');
-const Recruiting = require('../../app/recruitment/recruiting');
-const User = require('../../app/user/domain/user');
-const Question = require('../../app/applicant/domain/question');
-const Applicant = require('../../app/applicant/domain/applicant');
-const Answer = require('../../app/applicant/domain/answer');
+const QnA = require('../../app/recruitment/qna.js');
+const Team = require('../../app/team/team.js');
+const Recruiting = require('../../app/recruitment/recruiting.js');
+const User = require('../../app/user/domain/user.js');
+const Question = require('../../app/applicant/domain/question.js');
+const Applicant = require('../../app/applicant/domain/applicant.js');
+const Answer = require('../../app/applicant/domain/answer.js');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + './../../../config/config.json')[env];

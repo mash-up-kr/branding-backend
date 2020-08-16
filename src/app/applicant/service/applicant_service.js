@@ -1,7 +1,7 @@
-const ROLE = require("../../../common/model/role");
-const db = require('../../../common/model/sequelize');
-const Applicant = require('../domain/applicant');
-const APPLICATION_STATUS = require("../domain/application_status");
+const ROLE = require("../../../common/model/role.js");
+const db = require('../../../common/model/sequelize.js');
+const Applicant = require('../domain/applicant.js');
+const APPLICATION_STATUS = require("../domain/application_status.js");
 
 async function clearApplicants() {
   await Applicant.destroy({where: {}});
