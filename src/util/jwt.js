@@ -4,7 +4,7 @@ const JwtConfig = require('../../config/jwt-config.json');
 
 const jwtSign = Util.promisify(Jwt.sign);
 const jwtVerify = Util.promisify(Jwt.verify);
-const barerIndex = 7;
+const bearerIndex = 7;
 
 const sign = async (id, userId, role) => {
   try {
@@ -27,7 +27,7 @@ const verify = async token => {
       throw new Error();
     } 
     
-    const typeCutToken = token.substring(barerIndex);
+    const typeCutToken = token.substring(bearerIndex);
 
     return await jwtVerify(typeCutToken, JwtConfig.secret);
   } catch (err) {
