@@ -19,6 +19,6 @@ const authMiddleware = async (req, res, next) => {
   next();
 };
 
-mozdule.exports = {
+module.exports = {
   authMiddleware,
 };
