@@ -45,4 +45,4 @@ class User extends Sequelize.Model {
   }
 }
 
-module.exports = new User();
+module.exports = User;

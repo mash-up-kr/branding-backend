@@ -61,4 +61,4 @@ class Applicant extends Sequelize.Model {
   }
 }
 
-module.exports = new Applicant();
+module.exports = Applicant;

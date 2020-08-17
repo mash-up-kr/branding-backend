@@ -33,4 +33,4 @@ class Answer extends Sequelize.Model {
   }
 }
 
-module.exports = new Answer();
+module.exports = Answer;
