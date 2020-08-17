@@ -9,9 +9,9 @@ const authMiddleware = require('../common/auth/auth.js');
 const authMiddlewareUriList = ['/applicants', '/applicant-status'];
 
 router.use('/', authRouter);
+router.use(authMiddlewareUriList, authMiddleware);
 router.use('/applicants', applicantRouter);
 router.use('/applicant-status', applicantStatusRouter);
-router.use(authMiddlewareUriList, authMiddleware);
 
 router.use((req, res, next) => {
   const error =  new Error('Bad Request');
