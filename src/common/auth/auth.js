@@ -3,14 +3,6 @@ const JwtConfig = require('../../../config/jwt-config.json');
 
 const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization;
-  
-  if(!token) {
-    return res.status(403).json({
-      success: false,
-      message: 'No Authentication - Check Token'
-    });
-  }
-
   try {
     const decoded = await Jwt.verify(token);
     req.decoded = decoded;
