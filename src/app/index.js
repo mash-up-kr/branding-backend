@@ -8,9 +8,9 @@ const authMiddleware = require('../common/auth/auth.js');
 
 const authMiddlewareUriList = ['/applicants', '/applicant-status'];
 
-router.use('/', authRouter);
-router.use('/applicants', applicantRouter);
-router.use('/applicant-status', applicantStatusRouter);
+router.use('/v1/backoffice/', authRouter);
+router.use('/v1/backoffice/applicants', applicantRouter);
+router.use('/v1/backoffice/applicant-status', applicantStatusRouter);
 router.use(authMiddlewareUriList, authMiddleware);
 
 router.use((req, res, next) => {

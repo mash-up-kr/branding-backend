@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/v1', require('./app/'))
+app.use('/api', require('./app/'))
 
 app.listen(PORT, () => {
   console.log(`Listening at ${PORT}`);
