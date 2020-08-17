@@ -6,12 +6,12 @@ const applicantStatusRouter = require('./applicant/api/router/applicant_status_r
 const authRouter = require('./user/api/router/auth_router.js');
 const authMiddleware = require('../common/auth/auth.js');
 
+const authMiddlewareUriList = ['/applicants', '/applicant-status'];
 
 router.use('/', authRouter);
-router.use('/applicants', authMiddleware);
 router.use('/applicants', applicantRouter);
-router.use('/applicant-status', authMiddleware);
 router.use('/applicant-status', applicantStatusRouter);
+router.use(authMiddlewareUriList, authMiddleware);
 
 router.use((req, res, next) => {
   const error =  new Error('Bad Request');
