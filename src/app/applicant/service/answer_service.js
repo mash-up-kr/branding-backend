@@ -6,7 +6,7 @@ const clearAnswers = async () => {
   return result;
 };
 
-const updateAnswer = async (qId, applicantId, content) => {
+const createAnswer = async (qId, applicantId, content) => {
   const result = await Answer.create({
     questions_id: qId,
     applicants_id: applicantId,
@@ -18,5 +18,5 @@ const updateAnswer = async (qId, applicantId, content) => {
 
 module.exports = {
   clearAnswers,
-  updateAnswer,
+  createAnswer,
 };

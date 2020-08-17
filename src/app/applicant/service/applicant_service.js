@@ -9,7 +9,7 @@ const clearApplicants = async () => {
   return result;
 };
 
-const updateApplicant = async obj => {
+const createApplicant = async obj => {
   const result = await Applicant.create({
     teams_id: obj.teams_id,
     application_status: APPLICATION_STATUS.APPLICATION_COMPLETION,
@@ -72,7 +72,7 @@ const changeListStatus = async (role, applicantIds, applicantionStatus) => {
 
 module.exports = {
   clearApplicants,
-  updateApplicant,
+  createApplicant,
   changeStatus,
   changeListStatus,
 };
