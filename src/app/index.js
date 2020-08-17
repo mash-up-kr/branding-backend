@@ -5,13 +5,15 @@ const applicantRouter = require('./applicant/api/router/applicant_router.js');
 const applicantStatusRouter = require('./applicant/api/router/applicant_status_router.js');
 const authRouter = require('./user/api/router/auth_router.js');
 const authMiddleware = require('../common/auth/auth.js');
+const mailRouter = require('../app/mail/api/router/mail_router.js');
 
-const authMiddlewareUriList = ['/applicants', '/applicant-status'];
+const authMiddlewareUriList = ['/applicants', '/applicant-status', '/mail'];
 
 router.use('/', authRouter);
+router.use(authMiddlewareUriList, authMiddleware);
 router.use('/applicants', applicantRouter);
 router.use('/applicant-status', applicantStatusRouter);
-router.use(authMiddlewareUriList, authMiddleware);
+router.use('/mail', mailRouter);
 
 router.use((req, res, next) => {
   const error =  new Error('Bad Request');
