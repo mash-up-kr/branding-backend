@@ -46,4 +46,4 @@ class Team extends Sequelize.Model {
   }
 }
 
-module.exports = new Team();
+module.exports = Team;

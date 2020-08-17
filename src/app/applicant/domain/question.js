@@ -38,4 +38,4 @@ class Question extends Sequelize.Model {
   }
 }
 
-module.exports = new Question();
+module.exports = Question;

@@ -38,4 +38,4 @@ class QnA extends Sequelize.Model {
   }
 }
 
-module.exports = new QnA();
+module.exports = QnA;

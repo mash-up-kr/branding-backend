@@ -1,7 +1,7 @@
 const ROLE = require("../../../common/model/role.js");
 const applicantStatusRepository = require('../infrastructure/applicant_status_repository.js');
-const Recruiting = require('../../recruitment/recruiting.js');
-const Team = require('../../team/team.js');
+const Recruiting = require('../../recruitment/domain/recruiting.js');
+const Team = require('../../team/domain/team.js');
 
 const getApplicants = async role => {
   if(!role == ROLE.ADMIN) {

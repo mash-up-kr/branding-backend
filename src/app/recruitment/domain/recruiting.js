@@ -70,4 +70,4 @@ const Sequelize = require('sequelize');
   }
 }
 
-module.exports = new Recruiting();
+module.exports = Recruiting;
