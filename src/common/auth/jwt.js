@@ -1,18 +1,21 @@
 const Jwt = require('jsonwebtoken');
 const Util = require('util');
-const JwtConfig = require('../../config/jwt-config.json');
+const JwtConfig = require('../../../config/jwt-config.json');
 
 const jwtSign = Util.promisify(Jwt.sign);
 const jwtVerify = Util.promisify(Jwt.verify);
-const bearerIndex = 7;
+const BEARER_INDEX = 7;
+const BEARER = 'Bearer ';
+const ONE_YEAR = '365d';
+const ISSUER = 'mash-up.com';
+const SBUJECT = 'userInfo';
 
 const sign = async (id, userId, role) => {
   try {
     const userInfo = {id: id, user_id: userId, role: role};
     const secretKey = JwtConfig.secret;
-    const options = {expiresIn: '365d', issuer: 'mash-up.com', subject: 'userInfo'};
+    const options = {expiresIn: ONE_YEAR, issuer: ISSUER, subject: SBUJECT};
     const result = await jwtSign(userInfo, secretKey, options);
-
     return result;
   } catch (err) {
     const error = new Error('Fail Auth - Cannot make Token');
@@ -26,9 +29,7 @@ const verify = async token => {
     if(!(await isBearer(token))) {
       throw new Error();
     } 
-    
-    const typeCutToken = token.substring(bearerIndex);
-
+    const typeCutToken = token.substring(BEARER_INDEX);
     return await jwtVerify(typeCutToken, JwtConfig.secret);
   } catch (err) {
     const error = new Error('Fail Auth - Cannot Authenticate');
@@ -38,7 +39,7 @@ const verify = async token => {
 };
 
 const isBearer = async token => {
-  return token.startsWith('Bearer ');
+  return token.startsWith(BEARER);
 }
 
 module.exports = {
