@@ -6,7 +6,7 @@ const clearQuestion = async () => {
   return result;
 };
 
-const updateQuestion = async (target, headerList) => {
+const createQuestion = async (target, headerList) => {
   const list = [];
 
   for (let i = 0; i < headerList.length; i++) {
@@ -24,5 +24,5 @@ const updateQuestion = async (target, headerList) => {
 
 module.exports = {
   clearQuestion,
-  updateQuestion,
+  createQuestion,
 };
