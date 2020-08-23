@@ -15,6 +15,24 @@ const getRecruitment = async (req, res, next) => {
   }
 };
 
+const updateRecruitment = async (req, res, next) => {
+  try {
+    const recruitmentId = req.params.id;
+    const {role: role} = req.decoded;
+    const recruitment = req.body;
+    const result = await recruitmentService.updateRecruitment(role, recruitmentId, recruitment);
+    res.status('200')
+      .json({
+        code: 200,
+        data: result,
+      });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
 module.exports = {
-  getRecruitment
+  getRecruitment,
+  updateRecruitment
 };
