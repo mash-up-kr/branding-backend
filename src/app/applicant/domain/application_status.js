@@ -9,7 +9,7 @@ const APPLICATION_STATUS = Object.freeze({
   FINAL_PASS_NOTIFICATION: 'FINAL_PASS_NOTIFICATION',
   FINAL_FAIL_NOTIFICATION: 'FINAL_FAIL_NOTIFICATION',
 
-  next : async (status) => {
+  next : (status) => {
     switch(status) {
       case APPLICATION_STATUS.DOCUMENT_PASS:
         return APPLICATION_STATUS.FINAL_INTERVIEW;

@@ -13,7 +13,7 @@ const sendMail = async (team, application_status, applicant, title, contents) =>
     },
   });
 
-  const text = "team : ${team} \n 합/불 결과 : ${application_status} \n users-name : ${applicant.name} \n 내용 : ${contents}";
+  const text = 'team : ${team} \\n 합/불 결과 : ${application_status} \\n users-name : ${applicant.name} \\n 내용 : ${contents}';
   const html = eval('`'+text+'`');
 
   const result = await transporter.sendMail({
@@ -26,10 +26,10 @@ const sendMail = async (team, application_status, applicant, title, contents) =>
   if(result.accepted.length != 0) {
     return true;
   } else {
-    return false
+    return false;
   }
 }
   
-export {
+module.exports = {
   sendMail
-}
+};

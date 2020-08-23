@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const APPLICATION_STATUS = require("./application_status.js");
+const APPLICATION_STATUS = require('./application_status.js');
 
 class Applicant extends Sequelize.Model {
   static init(sequelize) {
@@ -58,8 +58,8 @@ class Applicant extends Sequelize.Model {
     this.application_status = applicationStatus;
   }
 
-  async nextStatus() {
-    this.application_status = await APPLICATION_STATUS.next(this.application_status);
+  nextStatus() {
+    this.application_status = APPLICATION_STATUS.next(this.application_status);
   }
 }
 

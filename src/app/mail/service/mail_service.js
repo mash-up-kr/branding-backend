@@ -1,7 +1,7 @@
 const mailSender = require('../infrastructure/mail_sender');
-const ROLE = require("../../../common/model/role");
+const ROLE = require('../../../common/model/role');
 const db = require('../../../common/model/sequelize');
-const MailLog = require('../domain/mail_log');
+const MailLog = require('../domain/mail_log.js');
 const SEND_STATUS = require('../domain/send_status');
 const Applicant = require('../../applicant/domain/applicant.js');
 
@@ -29,7 +29,7 @@ const sendMail = async (role, team, application_status, users, title, contents) 
   
     if(result) {
       acceptedArray.push(applicants[i]);
-      await applicants[i].nextStatus();
+      applicants[i].nextStatus();
       await Applicant.update({application_status : applicants[i].application_status}, {where: {id : applicants[i].id}});
     } else {
       rejectedArray.push(applicants[i]);
