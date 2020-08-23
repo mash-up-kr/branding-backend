@@ -42,7 +42,33 @@ const getTeam = async (role, recruitmentId, teamId) => {
   };
 }
 
+const insertTeam = async (role, recruitmentId, team) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const result = await Team.create({
+    name: team.name,
+    recruiting_id: recruitmentId,
+    resume_link: team.resume_link,
+    sheets_link: team.sheets_link,
+    introduction: team.contents
+  });
+
+  return  {
+    id: result.id,
+    name: result.name,
+    recruiting_id: result.recruiting_id,
+    resume_link: result.resume_link,
+    sheets_link: result.sheets_link,
+    contents: result.introduction 
+  };
+}
+
 module.exports = {
   getTeams,
-  getTeam
+  getTeam,
+  insertTeam
 };
