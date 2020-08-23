@@ -65,7 +65,7 @@ const insertTeam = async (role, recruitmentId, team) => {
     sheets_link: result.sheets_link,
     contents: result.introduction 
   };
-}
+};
 
 const deleteTeam = async (role, recruitmentId, teamId) => {
   if(role != ROLE.ADMIN) {
@@ -78,14 +78,14 @@ const deleteTeam = async (role, recruitmentId, teamId) => {
     where: {
         id: teamId, recruiting_id: recruitmentId
     }
-  })
+  });
 
   if(result >= 1) {
     return 'success';
   } else {
     return 'fail';
   }
-}
+};
 
 const updateTeam = async (role, recruitmentId, team, teamId) => {
   if(role != ROLE.ADMIN) {
@@ -112,7 +112,7 @@ const updateTeam = async (role, recruitmentId, team, teamId) => {
     sheets_link: result.sheets_link,
     contents: result.introduction 
   };
-}
+};
 
 module.exports = {
   getTeams,
