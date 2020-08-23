@@ -1,7 +1,7 @@
 const User = require('../domain/user.js');
 const jwt = require('../../../common/auth/jwt.js');
 
-const siginIn = async (userId, password) => {
+const signIn = async (userId, password) => {
   const user = await User.findOne({
     where: {
       user_id : userId,
@@ -26,5 +26,5 @@ const siginIn = async (userId, password) => {
 };
 
 module.exports = {
-  siginIn,
+  signIn,
 };

@@ -51,7 +51,6 @@ const changeListStatus = async (req, res, next) => {
 
 module.exports = {
   getResume,
-  getApplicantFromSheet,
   changeStatus,
   changeListStatus,
 };
