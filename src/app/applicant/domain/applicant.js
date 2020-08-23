@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-
 const APPLICATION_STATUS = require('./application_status.js');
 
 class Applicant extends Sequelize.Model {
@@ -53,7 +52,11 @@ class Applicant extends Sequelize.Model {
   }
 
   async changeStatus(applicationStatus) {
-    this.APPLICATION_STATUS = applicationStatus;
+    this.application_status = applicationStatus;
+  }
+
+  nextStatus() {
+    this.application_status = APPLICATION_STATUS.next(this.application_status);
   }
 }
 
