@@ -39,7 +39,28 @@ const insertFaq = async (role, recruitmentId, faq) => {
   return result;
 };
 
+const deleteFaq = async (role, recruitmentId, faqId) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const result = await FAQ.destroy({
+    where: {
+        id: faqId, recruiting_id: recruitmentId
+    }
+})
+
+  if(result >= 1) {
+    return 'success';
+  } else {
+    return 'fail';
+  }
+};
+
 module.exports = {
   getFaq,
-  insertFaq
+  insertFaq,
+  deleteFaq
 };

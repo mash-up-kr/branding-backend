@@ -33,8 +33,25 @@ const insertFaq = async (req, res, next) => {
   }
 };
 
+const deleteFaq = async (req, res, next) => {
+  try {
+    const recruitmentId = req.params.recruitment_id;
+    const faqId = req.params.faq_id;
+    const {role: role} = req.decoded;
+    const result = await faqService.deleteFaq(role, recruitmentId, faqId);
+    res.status('200')
+      .json({
+        code: 200,
+        data: result,
+      });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
 
 module.exports = {
   getFaq,
-  insertFaq
+  insertFaq,
+  deleteFaq
 };
