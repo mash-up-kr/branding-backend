@@ -11,5 +11,6 @@ router.delete('/:recruitment_id/faq/:faq_id', faqController.deleteFaq);
 router.get('/:recruitment_id/teams', teamController.getTeams);
 router.post('/:recruitment_id/teams', teamController.insertTeam);
 router.delete('/:recruitment_id/teams/:team_id', teamController.deleteTeam);
+router.put('/:recruitment_id/teams/:team_id', teamController.updateTeam);
 
 module.exports = router;

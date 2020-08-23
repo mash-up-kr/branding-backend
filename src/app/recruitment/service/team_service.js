@@ -87,9 +87,37 @@ const deleteTeam = async (role, recruitmentId, teamId) => {
   }
 }
 
+const updateTeam = async (role, recruitmentId, team, teamId) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const result = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
+
+  result.changeInfo(team.name, team.resume_link, team.sheets_link, team.contents);
+
+  await result.update({ name: result.name,
+    resume_link: result.resume_link,
+    sheets_link: result.sheets_link,
+    introduction: result.introduction,
+    update_time: Date.now() });
+
+  return  {
+    id: result.id,
+    name: result.name,
+    recruiting_id: result.recruiting_id,
+    resume_link: result.resume_link,
+    sheets_link: result.sheets_link,
+    contents: result.introduction 
+  };
+}
+
 module.exports = {
   getTeams,
   getTeam,
   insertTeam,
-  deleteTeam
+  deleteTeam,
+  updateTeam
 };
