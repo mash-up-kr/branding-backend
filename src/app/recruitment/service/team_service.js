@@ -67,8 +67,29 @@ const insertTeam = async (role, recruitmentId, team) => {
   };
 }
 
+const deleteTeam = async (role, recruitmentId, teamId) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const result = await Team.destroy({
+    where: {
+        id: teamId, recruiting_id: recruitmentId
+    }
+  })
+
+  if(result >= 1) {
+    return 'success';
+  } else {
+    return 'fail';
+  }
+}
+
 module.exports = {
   getTeams,
   getTeam,
-  insertTeam
+  insertTeam,
+  deleteTeam
 };
