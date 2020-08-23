@@ -8,6 +8,7 @@ const recruitmentRouter = require('../app/recruitment/api/router/recruitment_rou
 const authMiddlewareUriList = ['/v1/backoffice/applicants', '/v1/backoffice/applicant-status', 
                               '/v1/backoffice/mail', '/v1/backoffice/recruitment'];
 
+
 router.use('/v1/backoffice/', authRouter);
 router.use(authMiddlewareUriList, authMiddleware);
 router.use('/v1/backoffice/applicants', applicantRouter); // Done

@@ -1,7 +1,7 @@
 
 const {Sequelize, Op, QueryTypes} = require('sequelize');
 const FAQ = require('../../app/recruitment/domain/faq.js');
-const Team = require('../../app/team/domain/team.js');
+const Team = require('../../app/recruitment/domain/team.js');
 const Recruiting = require('../../app/recruitment/domain/recruiting.js');
 const User = require('../../app/user/domain/user.js');
 const Question = require('../../app/applicant/domain/question.js');
