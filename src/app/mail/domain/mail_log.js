@@ -17,6 +17,10 @@ class MailLog extends Sequelize.Model {
         type: Sequelize.STRING(45),
         allowNull: false,
       },
+      applicant_status: {
+        type: Sequelize.STRING(45),
+        allowNull: false,
+      },
       applicant_name: {
         type: Sequelize.TEXT,
         allowNull: false,

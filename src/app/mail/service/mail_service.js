@@ -5,6 +5,32 @@ const MailLog = require('../domain/mail_log.js');
 const SEND_STATUS = require('../domain/send_status');
 const Applicant = require('../../applicant/domain/applicant.js');
 
+const getMailLogs = async (role) => {
+  if(!role == ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const mailLogs = await MailLog.findAll();
+
+  const results = [];
+  for(let i = 0; i < mailLogs.length; i++) {
+    const result = {
+      id : mailLogs[i].id,
+      team : mailLogs[i].team_name,
+      mail_state : mailLogs[i].send_status,
+      applicant_state : mailLogs[i].applicant_status,
+      users : mailLogs[i].applicant_name,
+      title : mailLogs[i].title,
+      contents : mailLogs[i].content
+    }
+    results.push(result);
+  }
+
+  return results;
+}
+
 const sendMail = async (role, team, application_status, users, title, contents) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
@@ -55,4 +81,5 @@ const saveMailLog = async (SEND_STATUS, array, team, title, contents) => {
 
 module.exports = {
   sendMail,
+  getMailLogs
 };
