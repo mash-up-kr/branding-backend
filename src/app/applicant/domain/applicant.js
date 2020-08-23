@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
-
-const APPLICATION_STATUS = require("./application_status.js");
+const APPLICATION_STATUS = require('./application_status.js');
 
 class Applicant extends Sequelize.Model {
   static init(sequelize) {
@@ -17,8 +16,7 @@ class Applicant extends Sequelize.Model {
       application_status: {
         type: Sequelize.ENUM(APPLICATION_STATUS.APPLICATION_COMPLETION, APPLICATION_STATUS.DOCUMENT_FAILL,
           APPLICATION_STATUS.DOCUMENT_PASS, APPLICATION_STATUS.DOCUMENT_FAILL_NOTIFICATION,
-          APPLICATION_STATUS.DOCUMENT_PASS_NOTIFICATION, APPLICATION_STATUS.FINAL_INTERVIEW,
-          APPLICATION_STATUS.FINAL_PASS, APPLICATION_STATUS.FINAL_FAIL,
+          APPLICATION_STATUS.FINAL_INTERVIEW, APPLICATION_STATUS.FINAL_PASS, APPLICATION_STATUS.FINAL_FAIL,
           APPLICATION_STATUS.FINAL_PASS_NOTIFICATION, APPLICATION_STATUS.FINAL_FAIL_NOTIFICATION),
         allowNull: false,
       },
@@ -57,7 +55,11 @@ class Applicant extends Sequelize.Model {
   }
 
   async changeStatus(applicationStatus) {
-    this.APPLICATION_STATUS = applicationStatus;
+    this.application_status = applicationStatus;
+  }
+
+  nextStatus() {
+    this.application_status = APPLICATION_STATUS.next(this.application_status);
   }
 }
 

@@ -1,51 +1,55 @@
 const mailSender = require('../infrastructure/mail_sender');
-const ROLE = require("../../../common/model/role");
+const ROLE = require('../../../common/model/role');
 const db = require('../../../common/model/sequelize');
-const MailLog = require('../domain/mail_log');
+const MailLog = require('../domain/mail_log.js');
 const SEND_STATUS = require('../domain/send_status');
+const Applicant = require('../../applicant/domain/applicant.js');
 
-
-function sendMail(role, team, application_status, users, title, contents) {
+const sendMail = async (role, team, application_status, users, title, contents) => {
   if(!role == ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
     throw error;
   }
-  sendMailAndLog(team, application_status, users, title, contents);
+
+  const ids = users.map(e => e.id);
+  const applicants = await Applicant.findAll({
+    where: {
+      id: {
+        [db.Sequelize.Op.in]: ids
+      }
+    }
+  });
+
+  const acceptedArray = [];
+  const rejectedArray = [];
+
+  for(let i = 0; i < applicants.length; i++) {
+    const result = await mailSender.sendMail(team, application_status, applicants[i], title, contents);
+  
+    if(result) {
+      acceptedArray.push(applicants[i]);
+      applicants[i].nextStatus();
+      await Applicant.update({application_status : applicants[i].application_status}, {where: {id : applicants[i].id}});
+    } else {
+      rejectedArray.push(applicants[i]);
+    }
+  }
+
+  await saveMailLog(SEND_STATUS.SUCCESS, acceptedArray, team, title, contents);
+  await saveMailLog(SEND_STATUS.FAIL, rejectedArray, team, title, contents);
 }
 
-async function sendMailAndLog(team, application_status, users, title, contents) {
-  const result = await mailSender.sendMail(team, application_status, users, title, contents);
-
-  const t = await db.sequelize.transaction();
-
-  try {
-    if(result.acceptedArray.length != 0) {
-      await MailLog.create({
-        send_status: SEND_STATUS.SUCCESS,
-        team_name: team,
-        applicant_name: result.acceptedArray.join(),
-        title: title,
-        content: contents,
-        send_count: result.acceptedArray.length,
-      });
-    }
-
-    if(result.rejectedArray.length != 0) {
-      await MailLog.create({
-        send_status: SEND_STATUS.FAIL,
-        team_name: team,
-        applicant_name: result.rejectedArray.join(),
-        title: title,
-        content: contents,
-        send_count: result.acceptedArray.length,
-      });
-    }
-
-    await t.commit();
-  } catch (error) {
-    console.log(error);
-    await t.rollback();
+const saveMailLog = async (SEND_STATUS, array, team, title, contents) => {
+  if(array.length != 0) {
+    await MailLog.create({
+      send_status: SEND_STATUS,
+      team_name: team,
+      applicant_name: array.map(e => e.name).join(),
+      title: title,
+      content: contents,
+      send_count: array.length,
+    });
   }
 }
 
