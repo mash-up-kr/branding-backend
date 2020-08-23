@@ -23,6 +23,23 @@ const getFaq = async (role, recruitmentId) => {
   return results;
 };
 
+const insertFaq = async (role, recruitmentId, faq) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const result = await FAQ.create({
+    recruiting_id: recruitmentId,
+    question: faq.question,
+    answer: faq.answer,
+  });
+
+  return result;
+};
+
 module.exports = {
   getFaq,
+  insertFaq
 };
