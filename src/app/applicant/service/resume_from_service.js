@@ -3,7 +3,7 @@ const questionService = require('./question_service.js');
 const teamService = require('../../team/service/team_service');
 const googleSheet = require('../infrastructure/google_sheet.js');
 const db = require('../../../common/model/sequelize');
-const { clearApplicants } = require('./applicant_service.js');
+const applicantService = require('./applicant_service.js');
 
 const REGS = '/'
 const SHEETS_LINK = 'sheets_link';

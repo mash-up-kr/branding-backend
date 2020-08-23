@@ -50,10 +50,12 @@ const findAllApplicantStatusByTeams = async (recruitingId, teamsId) => {
 };
 
 const findAllApplicantStatusByStatus = async (recruitingId, applicationStatus) => {
-  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time' +
+  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
     'FROM teams as t ' +
     'JOIN applicants as a ON t.id = a.teams_id ' +
     'WHERE t.recruiting_id = :recruitingId AND a.application_status = :applicationStatus';
+
+    console.log(applicationStatus);
   const options = {
     replacements: {recruitingId, applicationStatus},
     type: db.Sequelize.QueryTypes.SELECT,
@@ -70,3 +72,4 @@ module.exports = {
   findAllApplicantStatusByTeams,
   findAllApplicantStatusByStatus,
 };
+
