@@ -8,7 +8,7 @@ const getResume = async (role, applicantId) => {
     throw error;
   }
 
-  const resumeTemp = await resumeRepository.findOneApplicant(applicantId);
+  const resumeTemp = await resumeRepository.findOneResume(applicantId);
 
   const arr = [];
   for (let i = 0; i < resumeTemp.length; i++) {
