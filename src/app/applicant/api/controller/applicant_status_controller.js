@@ -1,4 +1,5 @@
 const applicantStatusService = require('../../service/applicant_status_service.js');
+const resumeFromService = require('../../service/resume_from_service.js');
 
 const getApplicants = async (req, res, next) => {
   const {role: role} = req.decoded;
@@ -63,9 +64,24 @@ const searchByStatus = async (req, res, next) => {
   }
 };
 
+const getApplicantFromSheet = async (req, res) => {
+  try {
+    const {role: role} = req.decoded;
+    await resumeFromService.refreshFrom(role);
+    res.status('200')
+      .json({
+        data: "success",
+      });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
+
 module.exports = {
   getApplicants,
   searchByValue,
   searchByTeam,
   searchByStatus,
+  getApplicantFromSheet,
 };

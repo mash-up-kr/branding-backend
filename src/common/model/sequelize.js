@@ -7,8 +7,7 @@ const User = require('../../app/user/domain/user.js');
 const Question = require('../../app/applicant/domain/question.js');
 const Applicant = require('../../app/applicant/domain/applicant.js');
 const Answer = require('../../app/applicant/domain/answer.js');
-const MailLog = require('../../app/mail/domain/mailLog.js');
-
+const MailLog = require('../../app/mail/domain/mail_log.js');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + './../../../config/config.json')[env];
@@ -26,7 +25,7 @@ db.Team = Team;
 db.Question = Question;
 db.Applicant = Applicant;
 db.Answer = Answer;
-db.MailLog = MailLog
+db.MailLog = MailLog;
 
 User.init(sequelize);
 Recruiting.init(sequelize);

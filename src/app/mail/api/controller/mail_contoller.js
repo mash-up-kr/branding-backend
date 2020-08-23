@@ -10,7 +10,7 @@ const mailSend = (req, res, next) => {
       res.status('200')
       .json({
         success: true,
-        message: { mail_send : 'sucess' }
+        message: { mail_send : 'success' }
       });
     } catch (err) {
       console.error(err);

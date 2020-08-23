@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const SEND_STATUS = require('./sendStatus');
+const SEND_STATUS = require('./send_status.js');
 
 class MailLog extends Sequelize.Model {
   static init(sequelize) {

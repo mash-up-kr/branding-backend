@@ -1,8 +1,8 @@
 const mailSender = require('../infrastructure/mail_sender');
 const ROLE = require("../../../common/model/role");
 const db = require('../../../common/model/sequelize');
-const MailLog = require('../domain/mailLog');
-const SEND_STATUS = require('../domain/sendStatus');
+const MailLog = require('../domain/mail_log');
+const SEND_STATUS = require('../domain/send_status');
 
 
 function sendMail(role, team, application_status, users, title, contents) {
@@ -19,7 +19,6 @@ async function sendMailAndLog(team, application_status, users, title, contents) 
 
   const t = await db.sequelize.transaction();
 
-  console.log(SEND_STATUS.SUCCESS);
   try {
     if(result.acceptedArray.length != 0) {
       await MailLog.create({
@@ -48,9 +47,8 @@ async function sendMailAndLog(team, application_status, users, title, contents) 
     console.log(error);
     await t.rollback();
   }
-  
 }
 
-export {
-  sendMail
-}
+module.exports = {
+  sendMail,
+};
