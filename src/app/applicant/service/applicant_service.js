@@ -1,5 +1,5 @@
 const Applicant = require('../domain/applicant.js');
-const APPLICATION_STATUS = require("../domain/application_status.js");
+const APPLICATION_STATUS = require('../domain/application_status.js');
 const db = require('../../../common/model/sequelize.js');
 const ROLE = require("../../../common/model/role.js");
 

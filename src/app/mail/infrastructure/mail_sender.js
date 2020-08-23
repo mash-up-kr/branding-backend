@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const mailConfig = require('../../../../config/mail-config.json');
 
-async function sendMail(team, application_status, users, title, contents) {
+const sendMail = async (team, application_status, applicant, title, contents) => {
   const transporter = nodemailer.createTransport({
     service: mailConfig.service,
     host: mailConfig.host,
@@ -13,36 +13,23 @@ async function sendMail(team, application_status, users, title, contents) {
     },
   });
 
-  const acceptedArray = [];
-  const rejectedArray = [];
+  const text = "team : ${team} \n 합/불 결과 : ${application_status} \n users-name : ${applicant.name} \n 내용 : ${contents}";
+  const html = eval('`'+text+'`');
 
-  let text;
-  let html;
-  for(let i = 0; i < users.length; i++) { 
-    text = "team : ${team} \n 합/불 결과 : ${application_status} \n users-name : ${users[i].name} \n 내용 : ${contents}";
-    html = eval('`'+text+'`');
-    const result = await transporter.sendMail({
-      from: mailConfig.mail_id,
-      to: users[i].email,
-      subject: title,
-      html: html,  
-    });
-
-    if(result.accepted.length != 0) {
-      acceptedArray.push(users[i].name);
-    }
-
-    if(result.rejected.length != 0) {
-      rejectedArray.push(users[i].name);
-    }
+  const result = await transporter.sendMail({
+    from: mailConfig.mail_id,
+    to: applicant.email,
+    subject: title,
+    html: html,  
+  });
+  
+  if(result.accepted.length != 0) {
+    return true;
+  } else {
+    return false
   }
-
-  return {
-    acceptedArray : acceptedArray,
-    rejectedArray : rejectedArray,
-    };
 }
-
+  
 export {
   sendMail
 }
