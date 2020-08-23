@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const SEND_STATUS = require('./send_status.js');
+const APPLICATION_STATUS = require('../../../common/model/application_status.js');
 
 class MailLog extends Sequelize.Model {
   static init(sequelize) {
@@ -17,8 +18,11 @@ class MailLog extends Sequelize.Model {
         type: Sequelize.STRING(45),
         allowNull: false,
       },
-      applicant_status: {
-        type: Sequelize.STRING(45),
+      application_status: {
+        type: Sequelize.ENUM(APPLICATION_STATUS.APPLICATION_COMPLETION, APPLICATION_STATUS.DOCUMENT_FAILL,
+          APPLICATION_STATUS.DOCUMENT_PASS, APPLICATION_STATUS.DOCUMENT_FAILL_NOTIFICATION,
+          APPLICATION_STATUS.FINAL_INTERVIEW, APPLICATION_STATUS.FINAL_PASS, APPLICATION_STATUS.FINAL_FAIL,
+          APPLICATION_STATUS.FINAL_PASS_NOTIFICATION, APPLICATION_STATUS.FINAL_FAIL_NOTIFICATION),
         allowNull: false,
       },
       applicant_name: {
