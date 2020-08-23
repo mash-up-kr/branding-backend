@@ -23,6 +23,26 @@ const getTeams = async (role, recruitmentId) => {
   return results;
 }
 
+const getTeam = async (role, recruitmentId, teamId) => {
+  if(role != ROLE.ADMIN) {
+    const error = new Error('No Atuthentification');
+    error.status = 403;
+    throw error;
+  }
+
+  const team = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
+
+  return  {
+    id: team.id,
+    name: team.name,
+    recruiting_id: team.recruiting_id,
+    resume_link: team.resume_link,
+    sheets_link: team.sheets_link,
+    contents: team.introduction 
+  };
+}
+
 module.exports = {
   getTeams,
+  getTeam
 };
