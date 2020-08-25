@@ -6,7 +6,7 @@ const SEND_STATUS = require('../domain/send_status.js');
 const Applicant = require('../../applicant/domain/applicant.js');
 
 const getMailLogs = async (role) => {
-  if(!role == ROLE.ADMIN) {
+  if(role != ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
     throw error;
@@ -32,7 +32,7 @@ const getMailLogs = async (role) => {
 }
 
 const sendMail = async (role, team, application_status, users, title, contents) => {
-  if(!role == ROLE.ADMIN) {
+  if(role != ROLE.ADMIN) {
     const error = new Error('No Atuthentification');
     error.status = 403;
     throw error;
@@ -82,5 +82,5 @@ const saveMailLog = async (SEND_STATUS, application_status, array, team, title, 
 
 module.exports = {
   sendMail,
-  getMailLogs
+  getMailLogs,
 };
