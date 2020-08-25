@@ -47,6 +47,12 @@ const sendMail = async (role, team, application_status, users, title, contents) 
     }
   });
 
+  if(applicants.length != ids.length) {
+    const error = new Error('Not Found Applicant');
+    error.status = 404;
+    throw error;
+  }
+
   const acceptedArray = [];
   const rejectedArray = [];
 
