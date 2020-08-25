@@ -9,8 +9,8 @@ const authMiddleware = async (req, res, next) => {
     next(); 
   } catch (err) {
     return  res.status(403).json({
-      success: false,
-      message: 'No Authentication - Check Token'
+      code: 403,
+      data: 'No Authentication - Check Token'
     });
   }
 };

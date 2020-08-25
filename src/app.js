@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(err.status).send({status: err.status, message: err.message});
+  res.status(err.status).send({code: err.status, data: err.message});
 });
 
 app.get('/sheet', async (req, res) => {

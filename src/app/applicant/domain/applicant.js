@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const APPLICATION_STATUS = require('./application_status.js');
+const APPLICATION_STATUS = require('../../../common/model/application_status.js');
 
 class Applicant extends Sequelize.Model {
   static init(sequelize) {
