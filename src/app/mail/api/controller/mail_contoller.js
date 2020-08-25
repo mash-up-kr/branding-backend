@@ -8,7 +8,6 @@ const mailSend = async (req, res, next) => {
       await mailService.sendMail(role, team, application_status, users, title, contents);
       res.status('200')
       .json({
-        code: 200,
         data: { mail_send : 'success' }
       });
     } catch (err) {
@@ -23,7 +22,6 @@ const getMailLogs = async (req, res, next) => {
     const results = await mailService.getMailLogs(role);
     res.status('200')
     .json({
-      code: 200,
       data : results,
     });
   } catch (err) {
