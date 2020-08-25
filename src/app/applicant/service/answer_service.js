@@ -1,22 +1,33 @@
 const Answer = require('../domain/answer.js');
 
-const clearAnswers = async () => {
-  const result = await Answer.destroy({where: {}});
+async function clearAnswerList(questionId, transaction) {
+  try {
+    await Answer.destroy({
+      where: {
+        question_id: questionId,
+      },
+      transaction,
+    });
+  } catch (err) {
+    throw Error('Error while delete answers');
+  }
+  return true;
+}
 
-  return result;
-};
-
-const createAnswer = async (qId, applicantId, content) => {
-  const result = await Answer.create({
-    questions_id: qId,
-    applicants_id: applicantId,
-    content: content
-  });
-
-  return result;
-};
+async function createAnswer(questionId, applicantId, content) {
+  try {
+    const answer = await Answer.create({
+      questions_id: questionId,
+      applicants_id: applicantId,
+      content: content,
+    });
+    return answer;
+  } catch (err) {
+    throw Error('Error while create answer');
+  }
+}
 
 module.exports = {
-  clearAnswers,
+  clearAnswerList,
   createAnswer,
 };

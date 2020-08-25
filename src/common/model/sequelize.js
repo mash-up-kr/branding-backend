@@ -1,5 +1,4 @@
-const path = require('path');
-const Sequelize = require('sequelize');
+const {Sequelize, Op, QueryTypes} = require('sequelize');
 const QnA = require('../../app/recruitment/domain/qna.js');
 const Team = require('../../app/team/domain/team.js');
 const Recruiting = require('../../app/recruitment/domain/recruiting.js');
@@ -17,6 +16,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Op = Op;
+db.QueryTypes = QueryTypes;
 
 db.User = User;
 db.Recruiting = Recruiting;

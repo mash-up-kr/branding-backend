@@ -6,9 +6,9 @@ class Team extends Sequelize.Model {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      recruiting_id : {
+      recruiting_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -41,8 +41,8 @@ class Team extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'teams'
-    })
+      tableName: 'teams',
+    });
   }
 }
 

@@ -1,78 +1,67 @@
-const Applicant = require('../domain/applicant.js');
-const APPLICATION_STATUS = require("../domain/application_status.js");
-const db = require('../../../common/model/sequelize.js');
-const ROLE = require("../../../common/model/role.js");
+const Recruitment = require('../../recruitment/domain/recruiting');
+const Team = require('../../team/domain/team');
+const APPLICATION_STATUS = require('../../applicant/domain/application_status');
+const Applicant = require('../../applicant/domain/applicant');
+const applicantStatusRepository = require('../infrastructure/applicant_status_repository');
 
-const clearApplicants = async () => {
-  const result = await Applicant.destroy({where: {}});
-
-  return result;
-};
-
-const createApplicant = async obj => {
-  const result = await Applicant.create({
-    teams_id: obj.teams_id,
-    application_status: APPLICATION_STATUS.APPLICATION_COMPLETION,
-    name: obj.name,
-    email: obj.email,
-    phone: obj.phone,
+// TODO(sanghee): Need to support filter options (team_id, status)
+async function getApplicantList(teamId, applicantStatus) {
+  const latelyRecruitment = await Recruitment.findOne({
+    limit: 1,
+    order: [['id', 'DESC']],
   });
 
-  return result;
-};
-
-const changeStatus = async (role, applicantId, applicantionStatus) => {
-  if(!role == ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
-  const applicant = await Applicant.findOne({
-    where : {
-      id : applicantId,
-    }
-  });
-
-  await applicant.update({ application_status:applicantionStatus, update_time: Date.now() });
-
-  return {applicant};
-};
-
-const changeListStatus = async (role, applicantIds, applicantionStatus) => {
-  if(!role == ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
-  const t = await db.sequelize.transaction();
-
-  const applicants = await Applicant.findAll({
+  const teamList = await Team.findAll({
+    attributes: ['id', 'name'],
     where: {
-      id: {
-        [db.Sequelize.Op.in]: applicantIds
-      }
-    }
+      recruiting_id: latelyRecruitment.id,
+    },
   });
 
-  try {
-    for(let i = 0; i < applicants.length; i++) {
-     await applicants[i].update(
-       { application_status:applicantionStatus, update_time: Date.now() },
-       { transaction: t });
-    }
-    await t.commit();
-  } catch (error) {
-    await t.rollback();
-  }
+  const applicantList = await applicantStatusRepository.findAllApplicants(latelyRecruitment.id);
+  const applicantListLength = applicantList.length;
 
-  return {applicants};
-};
+  const parsedApplicantList = applicantList.map(item => ({
+    id: item.id,
+    team: {
+      id: item.teams_id,
+      name: item.teams_name,
+    },
+    name: item.name,
+    email: item.email,
+    phone: item.phone,
+    timestamp: Math.floor(item.application_time / 1000),
+    status: item.application_status,
+  }));
+
+  const timestamp = Math.floor(Date.now() / 1000);
+
+  const result = {
+    team_list: teamList,
+    applicant_list_length: applicantListLength,
+    applicant_list: parsedApplicantList,
+    timestamp: timestamp,
+  };
+
+  return result;
+}
+
+async function createApplicant(applicant) {
+  try {
+    const result = await Applicant.create({
+      teams_id: applicant.teams_id,
+      application_status: APPLICATION_STATUS.APPLICATION_COMPLETION,
+      name: applicant.name,
+      email: applicant.email,
+      phone: applicant.phone,
+    });
+    return result;
+  } catch (err) {
+    throw Error('Error while create applicant');
+  }
+}
 
 module.exports = {
-  clearApplicants,
+  getApplicantList,
   createApplicant,
-  changeStatus,
-  changeListStatus,
 };

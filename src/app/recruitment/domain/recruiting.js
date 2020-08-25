@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 
- class Recruiting extends Sequelize.Model {
+class Recruiting extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       main_banner: {
         type: Sequelize.TEXT,
@@ -65,8 +65,8 @@ const Sequelize = require('sequelize');
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'recruiting'
-    })
+      tableName: 'recruiting',
+    });
   }
 }
 

@@ -1,87 +1,39 @@
-const applicantStatusService = require('../../service/applicant_status_service.js');
-const resumeFromService = require('../../service/resume_from_service.js');
+const applicantStatusService = require('../../service/applicant_status_service');
 
-const getApplicants = async (req, res, next) => {
-  const {role: role} = req.decoded;
+async function changeApplicantStatus(req, res, next) {
+  const applicantId = req.params.id;
+  const {status: applicationStatus} = req.body;
   try {
-    const result = await applicantStatusService.getApplicants(role);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicantStatus : result }
+    const result = await applicantStatusService.changeApplicantStatus(applicantId, applicationStatus);
+    res.status(200).json({
+      data: result,
     });
   } catch (err) {
     console.error(err);
-    next(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
   }
-};
+}
 
-const searchByValue = async (req, res, next) => {
-  const {role: role} = req.decoded;
-  const value = req.query.value;
+async function changeApplicantListStatus(req, res, next) {
+  const {id_list: applicantIdList, status: applicationStatus} = req.body;
   try {
-    const result = await applicantStatusService.getApplicantsByValue(role, value);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicantStatus : result }
+    const result = await applicantStatusService.changeApplicantListStatus(applicantIdList, applicationStatus);
+    res.status(200).json({
+      data: result,
     });
   } catch (err) {
     console.error(err);
-    next(err);
-  }
-};
-
-const searchByTeam = async (req, res, next) => {
-  const teamsId = req.params.teamsId;
-  const {role: role} = req.decoded;
-  try {
-    const result = await applicantStatusService.getApplicantsByTeams(role, teamsId);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicantStatus : result }
+    res.status(400).json({
+      code: 400,
+      message: err.message,
     });
-  } catch (err) {
-    console.error(err);
-    next(err);
   }
-};
-
-const searchByStatus = async (req, res, next) => {
-  const applicantionStatus = req.query.status;
-  const {role: role} = req.decoded;
-  try {
-    const result = await applicantStatusService.getApplicantsByStatus(role, applicantionStatus);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicantStatus : result }
-    });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
-
-const getApplicantFromSheet = async (req, res) => {
-  try {
-    const {role: role} = req.decoded;
-    await resumeFromService.refreshFrom(role);
-    res.status('200')
-      .json({
-        data: "success",
-      });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
+}
 
 module.exports = {
-  getApplicants,
-  searchByValue,
-  searchByTeam,
-  searchByStatus,
-  getApplicantFromSheet,
+  changeApplicantStatus,
+  changeApplicantListStatus,
 };
