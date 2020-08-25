@@ -1,4 +1,5 @@
 const FAQ = require('../domain/faq.js');
+const RECRUITING = require('../domain/recruiting.js');
 const ROLE = require('../../../common/model/role.js');
 
 const getFaq = async (role, recruitmentId) => {
@@ -30,6 +31,18 @@ const insertFaq = async (role, recruitmentId, faq) => {
     throw error;
   }
 
+  const recruiting = await RECRUITING.findOne({
+    where: {
+      id: recruitmentId
+    }
+  });
+
+  if(!recruiting) {
+    const error = new Error('Not Found Recruitment');
+    error.status = 404;
+    throw error;
+  }
+
   const result = await FAQ.create({
     recruiting_id: recruitmentId,
     question: faq.question,
@@ -50,17 +63,19 @@ const deleteFaq = async (role, recruitmentId, faqId) => {
     where: {
         id: faqId, recruiting_id: recruitmentId
     }
-})
-
-  if(result >= 1) {
-    return 'success';
-  } else {
-    return 'fail';
+  })
+  
+  if(!result) {
+    const error = new Error('Not Found Recruitment or FAQ');
+    error.status = 404;
+    throw error;
   }
+
+  return 'success';
 };
 
 module.exports = {
   getFaq,
   insertFaq,
-  deleteFaq
+  deleteFaq,
 };
