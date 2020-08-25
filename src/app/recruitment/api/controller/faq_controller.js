@@ -7,7 +7,6 @@ const getFaq = async (req, res, next) => {
     const result = await faqService.getFaq(role, recruitmentId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -24,7 +23,6 @@ const insertFaq = async (req, res, next) => {
     const result = await faqService.insertFaq(role, recruitmentId, faq);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -41,7 +39,6 @@ const deleteFaq = async (req, res, next) => {
     const result = await faqService.deleteFaq(role, recruitmentId, faqId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
