@@ -1,9 +1,9 @@
-const resumeRepository = require('../infrastructure/resume_repository');
-const teamService = require('../../team/service/team_service');
-const applicantService = require('../../applicant/service/applicant_service');
-const questionService = require('../../applicant/service/question_service');
-const answerService = require('../../applicant/service/answer_service');
-const googleSheetRepository = require('../infrastructure/google_sheet_repository');
+const resumeRepository = require('../infrastructure/resume_repository.js');
+const teamService = require('../../team/service/team_service.js');
+const applicantService = require('../../applicant/service/applicant_service.js');
+const questionService = require('../../applicant/service/question_service.js');
+const answerService = require('../../applicant/service/answer_service.js');
+const googleSheetRepository = require('../infrastructure/google_sheet_repository.js');
 
 const SHEET_LINK = 'sheets_link';
 const EMAIL_INDEX = 1;

@@ -1,6 +1,6 @@
-const Question = require('../domain/question');
-const answerService = require('../service/answer_service');
-const db = require('../../../common/model/sequelize');
+const Question = require('../domain/question.js');
+const answerService = require('../service/answer_service.js');
+const db = require('../../../common/model/sequelize.js');
 
 async function clearQuestionList(teamId) {
   const transaction = await db.sequelize.transaction();

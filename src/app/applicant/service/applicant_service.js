@@ -1,9 +1,9 @@
-const Recruitment = require('../../recruitment/domain/recruiting');
-const Team = require('../../team/domain/team');
-const APPLICATION_STATUS = require('../../applicant/domain/application_status');
-const Applicant = require('../../applicant/domain/applicant');
-const applicantStatusRepository = require('../infrastructure/applicant_status_repository');
-const db = require('../../../common/model/sequelize');
+const Recruitment = require('../../recruitment/domain/recruiting.js');
+const Team = require('../../team/domain/team.js');
+const APPLICATION_STATUS = require('../../applicant/domain/application_status.js');
+const Applicant = require('../../applicant/domain/applicant.js');
+const applicantStatusRepository = require('../infrastructure/applicant_status_repository.js');
+const db = require('../../../common/model/sequelize.js');
 
 // TODO(sanghee): Need to support filter options (team_id, status)
 async function getApplicantList(teamId, applicantStatus) {
