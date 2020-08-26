@@ -14,7 +14,7 @@ class Applicant extends Sequelize.Model {
         allowNull: false,
       },
       application_status: {
-        type: Sequelize.ENUM(...APPLICATION_STATUS),
+        type: Sequelize.ENUM(...Object.keys(APPLICATION_STATUS)),
         allowNull: false,
       },
       name: {
