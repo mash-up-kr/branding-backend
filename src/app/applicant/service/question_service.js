@@ -26,7 +26,7 @@ async function clearQuestionList(teamId) {
     return true;
   } catch (err) {
     await transaction.rollback();
-    throw Error('Error while delete questions');
+    throw Error('Error while delete questions'); // 500
   }
 }
 
@@ -48,7 +48,7 @@ async function createQuestionList(teamId, headerList) {
     await transaction.commit();
   } catch (err) {
     await transaction.rollback();
-    throw Error('Error while create questions');
+    throw Error('Error while create questions'); // 500
   }
 
   return list;
@@ -70,9 +70,14 @@ async function getQuestionIdList(teamId) {
     for (const question of questionList) {
       questionIdList.push(question.getDataValue('id'));
     }
+
+    if (questionIdList.length === 0) {
+      throw Error(`Can't find questions`); // 404
+    }
+
     return questionIdList;
   } catch (err) {
-    throw Error('Error while get question id list');
+    throw Error('Error while get question id list'); // 404 || 500
   }
 }
 

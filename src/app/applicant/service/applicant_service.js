@@ -58,7 +58,7 @@ async function createApplicant(applicant) {
     });
     return result;
   } catch (err) {
-    throw Error('Error while create applicant');
+    throw Error('Error while create applicant'); // 500
   }
 }
 
@@ -70,13 +70,13 @@ async function changeApplicantStatus(applicantId, applicationStatus) {
   });
 
   if (!applicant) {
-    throw Error(`Error while find applicant by id`);
+    throw Error(`Error while find applicant by id`); // 404
   }
 
   try {
     await applicant.update({application_status: applicationStatus, update_time: Date.now()});
   } catch (err) {
-    throw Error('Error while update applicant status');
+    throw Error('Error while update applicant status'); // 500
   }
 
   return {status: applicationStatus};
@@ -103,7 +103,7 @@ async function changeApplicantListStatus(applicantIdList, applicationStatus) {
     await transaction.commit();
   } catch (error) {
     await transaction.rollback();
-    throw Error('Error while update applicants status');
+    throw Error('Error while update applicants status'); // 500
   }
   return {status: applicationStatus};
 }

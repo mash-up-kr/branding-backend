@@ -15,7 +15,7 @@ async function getResume(applicantId) {
     const resumeList = await resumeRepository.findOneResume(applicantId);
 
     if (!resumeList || resumeList.length === 0) {
-      throw Error();
+      throw Error(); // 404
     }
 
     const qnaList = [];
@@ -42,7 +42,7 @@ async function getResume(applicantId) {
     };
     return result;
   } catch (err) {
-    throw Error('Error while find a resume');
+    throw Error('Error while find a resume'); // 500 or 404
   }
 }
 

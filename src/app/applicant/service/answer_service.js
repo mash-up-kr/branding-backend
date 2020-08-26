@@ -2,14 +2,17 @@ const Answer = require('../domain/answer.js');
 
 async function clearAnswerList(questionId, transaction) {
   try {
-    await Answer.destroy({
+    const result = await Answer.destroy({
       where: {
         question_id: questionId,
       },
       transaction,
     });
+    if (result === 0) {
+      throw Error(`Can't find answers`); // 404
+    }
   } catch (err) {
-    throw Error('Error while delete answers');
+    throw Error('Error while delete answers'); // 500 || 404
   }
   return true;
 }
@@ -23,7 +26,7 @@ async function createAnswer(questionId, applicantId, content) {
     });
     return answer;
   } catch (err) {
-    throw Error('Error while create answer');
+    throw Error('Error while create answer'); // 500
   }
 }
 
