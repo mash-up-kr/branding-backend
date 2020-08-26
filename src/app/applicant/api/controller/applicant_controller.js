@@ -1,5 +1,5 @@
-const applicantService = require('../../service/applicant_service');
-const resumeService = require('../../service/resume_service');
+const applicantService = require('../../service/applicant_service.js');
+const resumeService = require('../../service/resume_service.js');
 
 async function getApplicantList(req, res, next) {
   const {team: teamId, status: applicantStatus} = req.query;
