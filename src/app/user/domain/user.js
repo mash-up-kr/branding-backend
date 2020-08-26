@@ -8,9 +8,9 @@ class User extends Sequelize.Model {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      user_id : {
+      user_id: {
         type: Sequelize.STRING(20),
         allowNull: false,
         unique: true,
@@ -36,8 +36,8 @@ class User extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'users'
-    })
+      tableName: 'users',
+    });
   }
 
   async equalsPassword(inputPassword) {

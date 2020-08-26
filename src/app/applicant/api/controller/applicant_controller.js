@@ -1,56 +1,92 @@
-const resumeService = require('../../service/resume_service.js');
 const applicantService = require('../../service/applicant_service.js');
+const resumeService = require('../../service/resume_service.js');
 
-const getResume = async (req, res, next) => {
+async function getApplicantList(req, res, next) {
+  const {team: teamId, status: applicantStatus} = req.query;
+  // TODO(sanghee): Need to support filter options (team_id, status)
   try {
-    const applicantId = req.params.id;
-    const {role: role} = req.decoded;
-    const result = await resumeService.getResume(role, applicantId);
-    res.status('200')
-      .json({
-        data: result,
-      });
+    const result = await applicantService.getApplicantList(teamId, applicantStatus);
+    res.status('200').json({
+      data: result,
+    });
   } catch (err) {
     console.error(err);
-    next(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
   }
-};
+}
 
-const changeStatus = async (req, res, next) => {
+async function getResume(req, res, next) {
   const applicantId = req.params.id;
-  const {application_status} = req.body;
-  const {role: role} = req.decoded;
   try {
-    const result = await applicantService.changeStatus(role, applicantId, application_status);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicant : result }
+    const result = await resumeService.getResume(applicantId);
+    res.status('200').json({
+      data: result,
     });
   } catch (err) {
     console.error(err);
-    next(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
   }
-};
+}
 
-const changeListStatus = async (req, res, next) => {
-  const {applicants_ids, application_status} = req.body;
-  const {role: role} = req.decoded;
+async function changeApplicantStatus(req, res, next) {
+  const applicantId = req.params.id;
+  const {status: applicationStatus} = req.body;
   try {
-    const result = await applicantService.changeListStatus(role, applicants_ids, application_status);
-    res.status('200')
-    .json({
-      success: true,
-      message: { applicant : result }
+    const result = await applicantService.changeApplicantStatus(applicantId, applicationStatus);
+    res.status(200).json({
+      data: result,
     });
   } catch (err) {
     console.error(err);
-    next(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
   }
-};
+}
+
+async function changeApplicantListStatus(req, res, next) {
+  const {id_list: applicantIdList, status: applicationStatus} = req.body;
+  try {
+    const result = await applicantService.changeApplicantListStatus(applicantIdList, applicationStatus);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
+  }
+}
+
+// TODO(sanghee): req.teamId?
+async function updateApplicants(req, res, next) {
+  try {
+    await resumeService.updateAllResume();
+    res.status(200).json({
+      data: {},
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
+  }
+}
 
 module.exports = {
+  getApplicantList,
   getResume,
-  changeStatus,
-  changeListStatus,
+  changeApplicantStatus,
+  changeApplicantListStatus,
+  updateApplicants,
 };

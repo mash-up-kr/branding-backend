@@ -24,11 +24,11 @@ const sign = async (id, userId, role) => {
   }
 };
 
-const verify = async token => {
+const verify = async (token) => {
+  if (!token || !(await isBearer(token))) {
+    throw new Error(`Invalid bearer format`);
+  }
   try {
-    if(!(await isBearer(token))) {
-      throw new Error();
-    } 
     const typeCutToken = token.substring(BEARER_INDEX);
     return await jwtVerify(typeCutToken, JwtConfig.secret);
   } catch (err) {
@@ -38,9 +38,9 @@ const verify = async token => {
   }
 };
 
-const isBearer = async token => {
+const isBearer = async (token) => {
   return token.startsWith(BEARER);
-}
+};
 
 module.exports = {
   sign,

@@ -7,7 +7,7 @@ class Answer extends Sequelize.Model {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
-      applicants_id : {
+      applicants_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
@@ -28,8 +28,8 @@ class Answer extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'answers'
-    })
+      tableName: 'answers',
+    });
   }
 }
 

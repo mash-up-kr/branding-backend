@@ -1,5 +1,5 @@
-const serviceAccount = require('../../config/mash-up-admin-dev-8deb0d42c2ef.json');
-const {GoogleSpreadsheet,GoogleSpreadsheetWorksheet} = require('google-spreadsheet');
+const serviceAccount = require('../../../../config/mash-up-admin-dev-8deb0d42c2ef.json');
+const {GoogleSpreadsheet, GoogleSpreadsheetWorksheet} = require('google-spreadsheet');
 const moment = require('moment');
 
 const fillZero = (number, width) => {

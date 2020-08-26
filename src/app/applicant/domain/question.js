@@ -6,9 +6,9 @@ class Question extends Sequelize.Model {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      teams_id : {
+      teams_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -33,8 +33,8 @@ class Question extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'questions'
-    })
+      tableName: 'questions',
+    });
   }
 }
 

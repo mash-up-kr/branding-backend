@@ -6,11 +6,11 @@ const authMiddleware = async (req, res, next) => {
   try {
     const decoded = await Jwt.verify(token);
     req.decoded = decoded;
-    next(); 
+    next();
   } catch (err) {
-    return  res.status(403).json({
-      success: false,
-      message: 'No Authentication - Check Token'
+    return res.status(403).json({
+      code: 403,
+      message: 'No Authentication - Check Token',
     });
   }
 };
