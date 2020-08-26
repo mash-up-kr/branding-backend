@@ -58,6 +58,7 @@ async function createApplicant(applicant) {
     });
     return result;
   } catch (err) {
+    console.error(err);
     throw Error('Error while create applicant'); // 500
   }
 }
@@ -76,6 +77,7 @@ async function changeApplicantStatus(applicantId, applicationStatus) {
   try {
     await applicant.update({application_status: applicationStatus, update_time: Date.now()});
   } catch (err) {
+    console.error(err);
     throw Error('Error while update applicant status'); // 500
   }
 
@@ -103,6 +105,7 @@ async function changeApplicantListStatus(applicantIdList, applicationStatus) {
     await transaction.commit();
   } catch (error) {
     await transaction.rollback();
+    console.error(err);
     throw Error('Error while update applicants status'); // 500
   }
   return {status: applicationStatus};

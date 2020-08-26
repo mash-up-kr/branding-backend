@@ -26,6 +26,7 @@ async function clearQuestionList(teamId) {
     return true;
   } catch (err) {
     await transaction.rollback();
+    console.error(err);
     throw Error('Error while delete questions'); // 500
   }
 }
@@ -48,6 +49,7 @@ async function createQuestionList(teamId, headerList) {
     await transaction.commit();
   } catch (err) {
     await transaction.rollback();
+    console.error(err);
     throw Error('Error while create questions'); // 500
   }
 
@@ -77,6 +79,7 @@ async function getQuestionIdList(teamId) {
 
     return questionIdList;
   } catch (err) {
+    console.error(err);
     throw Error('Error while get question id list'); // 404 || 500
   }
 }

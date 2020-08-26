@@ -42,6 +42,7 @@ async function getResume(applicantId) {
     };
     return result;
   } catch (err) {
+    console.error(err);
     throw Error('Error while find a resume'); // 500 or 404
   }
 }
@@ -57,6 +58,7 @@ async function updateAllResume() {
     }
 
   } catch (err) {
+    console.error(err);
     throw Error('Error while update all resume');
   }
 }
@@ -73,6 +75,7 @@ async function updateResumeHeaderList(teamId) {
     const headerList = await googleSheetRepository.getHeaderList(sheetId);
     await questionService.createQuestionList(teamId, headerList);
   } catch (err) {
+    console.error(err);
     throw Error('Error while update headers');
   }
 }

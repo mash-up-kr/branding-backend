@@ -12,6 +12,7 @@ async function clearAnswerList(questionId, transaction) {
       throw Error(`Can't find answers`); // 404
     }
   } catch (err) {
+    console.error(err);
     throw Error('Error while delete answers'); // 500 || 404
   }
   return true;
@@ -26,6 +27,7 @@ async function createAnswer(questionId, applicantId, content) {
     });
     return answer;
   } catch (err) {
+    console.error(err);
     throw Error('Error while create answer'); // 500
   }
 }
