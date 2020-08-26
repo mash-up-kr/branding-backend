@@ -15,6 +15,12 @@ async function clearQuestionList(teamId) {
     for (const question of questionList) {
       const questionId = question.getDataValue('id');
       await answerService.clearAnswerList(questionId, transaction);
+      await Question.destroy({
+        where: {
+          id: questionId,
+        },
+        transaction,
+      });
     }
     await transaction.commit();
     return true;

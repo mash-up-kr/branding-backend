@@ -3,6 +3,7 @@ const Team = require('../../team/domain/team');
 const APPLICATION_STATUS = require('../../applicant/domain/application_status');
 const Applicant = require('../../applicant/domain/applicant');
 const applicantStatusRepository = require('../infrastructure/applicant_status_repository');
+const db = require('../../../common/model/sequelize');
 
 // TODO(sanghee): Need to support filter options (team_id, status)
 async function getApplicantList(teamId, applicantStatus) {
@@ -61,7 +62,55 @@ async function createApplicant(applicant) {
   }
 }
 
+async function changeApplicantStatus(applicantId, applicationStatus) {
+  const applicant = await Applicant.findOne({
+    where: {
+      id: applicantId,
+    },
+  });
+
+  if (!applicant) {
+    throw Error(`Error while find applicant by id`);
+  }
+
+  try {
+    await applicant.update({application_status: applicationStatus, update_time: Date.now()});
+  } catch (err) {
+    throw Error('Error while update applicant status');
+  }
+
+  return {status: applicationStatus};
+}
+
+async function changeApplicantListStatus(applicantIdList, applicationStatus) {
+  const applicantList = await Applicant.findAll({
+    where: {
+      id: {
+        [db.Op.in]: applicantIdList,
+      },
+    },
+  });
+
+  const transaction = await db.sequelize.transaction();
+
+  try {
+    for (const applicant of applicantList) {
+      await applicant.update(
+          {application_status: applicationStatus, update_time: Date.now()},
+          {transaction},
+      );
+    }
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw Error('Error while update applicants status');
+  }
+  return {status: applicationStatus};
+}
+
 module.exports = {
   getApplicantList,
   createApplicant,
+  changeApplicantStatus,
+  changeApplicantListStatus,
 };

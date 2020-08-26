@@ -34,6 +34,39 @@ async function getResume(req, res, next) {
   }
 }
 
+async function changeApplicantStatus(req, res, next) {
+  const applicantId = req.params.id;
+  const {status: applicationStatus} = req.body;
+  try {
+    const result = await applicantService.changeApplicantStatus(applicantId, applicationStatus);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
+  }
+}
+
+async function changeApplicantListStatus(req, res, next) {
+  const {id_list: applicantIdList, status: applicationStatus} = req.body;
+  try {
+    const result = await applicantService.changeApplicantListStatus(applicantIdList, applicationStatus);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      code: 400,
+      message: err.message,
+    });
+  }
+}
+
 // TODO(sanghee): req.teamId?
 async function updateApplicants(req, res, next) {
   try {
@@ -50,5 +83,7 @@ async function updateApplicants(req, res, next) {
 module.exports = {
   getApplicantList,
   getResume,
+  changeApplicantStatus,
+  changeApplicantListStatus,
   updateApplicants,
 };
