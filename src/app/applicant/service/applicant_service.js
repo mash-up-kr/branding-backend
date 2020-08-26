@@ -111,9 +111,22 @@ async function changeApplicantListStatus(applicantIdList, applicationStatus) {
   return {status: applicationStatus};
 }
 
+async function clearAllApplicantList(teamId) {
+  try {
+    await Applicant.destroy({
+      where: {
+        teams_id: teamId,
+      },
+    });
+  } catch (err) {
+    throw Error(`Error while delete all applicants (teamId:${teamId}`); // 500
+  }
+}
+
 module.exports = {
   getApplicantList,
   createApplicant,
   changeApplicantStatus,
   changeApplicantListStatus,
+  clearAllApplicantList,
 };

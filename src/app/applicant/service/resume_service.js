@@ -50,7 +50,7 @@ async function getResume(applicantId) {
 // TODO(sanghee): delete this function
 async function updateAllResume() {
   try {
-    const teamIdList = teamService.getAllTeamsId();
+    const teamIdList = await teamService.getAllTeamsId();
 
     for (const teamId of teamIdList) {
       await updateResumeHeaderList(teamId);
@@ -67,8 +67,9 @@ async function updateResumeHeaderList(teamId) {
   // TODO(sanghee): Need transaction
   try {
     await questionService.clearQuestionList(teamId);
+    await applicantService.clearAllApplicantList(teamId);
 
-    const team = teamService.getTeam(teamId);
+    const team = await teamService.getTeam(teamId);
     const sheetLink = team.getDataValue(SHEET_LINK);
     const sheetId = getSheetId(sheetLink);
 
@@ -83,23 +84,25 @@ async function updateResumeHeaderList(teamId) {
 async function updateResumeList(teamId) {
   // TODO(sanghee): Need transaction
   try {
-    const team = teamService.getTeam(teamId);
+    const team = await teamService.getTeam(teamId);
     const sheetLink = team.getDataValue(SHEET_LINK);
     const sheetId = getSheetId(sheetLink);
 
     const dataList = await googleSheetRepository.getDataList(sheetId);
-    const applicantList = parseDataList(dataList);
+    const applicantList = parseDataList(teamId, dataList);
 
     for (let i = 0; i < applicantList.length; i++) {
       const applicant = applicantList[i];
       const newApplicant = await applicantService.createApplicant(applicant);
       const newApplicantId = newApplicant.getDataValue('id');
-      const questionIdList = questionService.getQuestionIdList(teamId);
+      const questionIdList = await questionService.getQuestionIdList(teamId);
       for (let j = 0; j < questionIdList.length; j++) {
         await answerService.createAnswer(questionIdList[j], newApplicantId, dataList[i][j]);
       }
     }
+
   } catch (err) {
+    console.error(err);
     throw Error('Error while update headers');
   }
 }

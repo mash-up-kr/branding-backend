@@ -58,7 +58,7 @@ async function createQuestionList(teamId, headerList) {
 
 async function getQuestionIdList(teamId) {
   try {
-    const questionList = Question.findAll({
+    const questionList = await Question.findAll({
       where: {
         teams_id: teamId,
       },

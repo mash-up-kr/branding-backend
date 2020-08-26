@@ -4,16 +4,13 @@ async function clearAnswerList(questionId, transaction) {
   try {
     const result = await Answer.destroy({
       where: {
-        question_id: questionId,
+        questions_id: questionId,
       },
       transaction,
     });
-    if (result === 0) {
-      throw Error(`Can't find answers`); // 404
-    }
   } catch (err) {
     console.error(err);
-    throw Error('Error while delete answers'); // 500 || 404
+    throw Error('Error while delete answers'); // 500
   }
   return true;
 }

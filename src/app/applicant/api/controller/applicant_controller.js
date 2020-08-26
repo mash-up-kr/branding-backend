@@ -71,6 +71,9 @@ async function changeApplicantListStatus(req, res, next) {
 async function updateApplicants(req, res, next) {
   try {
     await resumeService.updateAllResume();
+    res.status(200).json({
+      data: {},
+    });
   } catch (err) {
     console.error(err);
     res.status(400).json({
