@@ -1,13 +1,6 @@
 const Team = require('../domain/team.js');
-const ROLE = require('../../../common/model/role.js');
 
-const getTeams = async (role, recruitmentId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const getTeams = async (recruitmentId) => {
   const teams = await Team.findAll({ where: { recruiting_id: recruitmentId}});
 
   const results = [];
@@ -23,13 +16,7 @@ const getTeams = async (role, recruitmentId) => {
   return results;
 }
 
-const getTeam = async (role, recruitmentId, teamId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const getTeam = async (recruitmentId, teamId) => {
   const team = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
 
   return  {
@@ -42,13 +29,7 @@ const getTeam = async (role, recruitmentId, teamId) => {
   };
 }
 
-const insertTeam = async (role, recruitmentId, team) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const insertTeam = async (recruitmentId, team) => {
   const result = await Team.create({
     name: team.name,
     recruiting_id: recruitmentId,
@@ -67,13 +48,7 @@ const insertTeam = async (role, recruitmentId, team) => {
   };
 };
 
-const deleteTeam = async (role, recruitmentId, teamId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const deleteTeam = async (recruitmentId, teamId) => {
   const result = await Team.destroy({
     where: {
         id: teamId, recruiting_id: recruitmentId
@@ -87,13 +62,7 @@ const deleteTeam = async (role, recruitmentId, teamId) => {
   }
 };
 
-const updateTeam = async (role, recruitmentId, team, teamId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const updateTeam = async (recruitmentId, team, teamId) => {
   const result = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
 
   result.changeInfo(team.name, team.resume_link, team.sheets_link, team.contents);
@@ -119,5 +88,5 @@ module.exports = {
   getTeam,
   insertTeam,
   deleteTeam,
-  updateTeam
+  updateTeam,
 };
