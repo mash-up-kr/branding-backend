@@ -1,13 +1,7 @@
 const Recruiting = require('../domain/recruiting.js');
 const ROLE = require("../../../common/model/role.js");
 
-const getRecruitment = async (role) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const getRecruitment = async () => {
   const latelyRecruiting = await Recruiting.findOne({
     limit: 1,
     order: [[ 'id', 'DESC' ]]
@@ -29,13 +23,7 @@ const getRecruitment = async (role) => {
   };
 };
 
-const updateRecruitment = async (role, recruitmentId, recruitment) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const updateRecruitment = async (recruitmentId, recruitment) => {
   const latelyRecruiting = await Recruiting.findOne({ where: { id: recruitmentId }});
 
   latelyRecruiting.changeInfo(recruitment.mainBanner, recruitment.title, recruitment.introduction,
@@ -76,5 +64,5 @@ const updateRecruitment = async (role, recruitmentId, recruitment) => {
 
 module.exports = {
   getRecruitment,
-  updateRecruitment
+  updateRecruitment,
 };

@@ -2,8 +2,7 @@ const recruitmentService = require('../../service/recruitment_service.js');
 
 const getRecruitment = async (req, res, next) => {
   try {
-    const {role: role} = req.decoded;
-    const result = await recruitmentService.getRecruitment(role);
+    const result = await recruitmentService.getRecruitment();
     res.status('200')
       .json({
         code: 200,
@@ -18,9 +17,8 @@ const getRecruitment = async (req, res, next) => {
 const updateRecruitment = async (req, res, next) => {
   try {
     const recruitmentId = req.params.id;
-    const {role: role} = req.decoded;
     const recruitment = req.body;
-    const result = await recruitmentService.updateRecruitment(role, recruitmentId, recruitment);
+    const result = await recruitmentService.updateRecruitment(recruitmentId, recruitment);
     res.status('200')
       .json({
         code: 200,
@@ -34,5 +32,5 @@ const updateRecruitment = async (req, res, next) => {
 
 module.exports = {
   getRecruitment,
-  updateRecruitment
+  updateRecruitment,
 };
