@@ -26,14 +26,16 @@ const getRecruitment = async () => {
 const updateRecruitment = async (recruitmentId, recruitment) => {
   const latelyRecruiting = await Recruiting.findOne({ where: { id: recruitmentId }});
 
-  latelyRecruiting.changeInfo(recruitment.mainBanner, recruitment.title, recruitment.introduction,
+  latelyRecruiting.changeInfo(recruitment.mainBanner, recruitment.title, 
+    recruitment.order, recruitment.introduction,
     recruitment.recruitment_start, recruitment.recruitment_end, 
     recruitment.document_acceptance_start, recruitment.document_acceptance_end,
     recruitment.interview_start, recruitment.interview_end, 
     recruitment.final_acceptance_start, recruitment.final_acceptance_end);
   
-  await latelyRecruiting.update({ main_banner: latelyRecruiting.main_banner,
-    title: latelyRecruiting.title, introduction: latelyRecruiting.introduction,
+  await latelyRecruiting.update({ main_banner: latelyRecruiting.main_banner, 
+    title: latelyRecruiting.title, order: latelyRecruiting.order, 
+    introduction: latelyRecruiting.introduction,
     recruitment_start_period: latelyRecruiting.recruitment_start_period,
     recruitment_end_period: latelyRecruiting.recruitment_end_period,
     document_acceptance_start_period: latelyRecruiting.document_acceptance_start_period,
@@ -48,6 +50,7 @@ const updateRecruitment = async (recruitmentId, recruitment) => {
     id: latelyRecruiting.id,
     banner: latelyRecruiting.main_banner,
     title: latelyRecruiting.title,
+    order: latelyRecruiting.order,
     introduction: latelyRecruiting.introduction,
     schedule: {
       recruitment_start: latelyRecruiting.recruitment_start_period,

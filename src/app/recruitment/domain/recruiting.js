@@ -73,10 +73,13 @@ class Recruiting extends Sequelize.Model {
     });
   }
 
-  changeInfo(mainBanner, title, introduction, recruitmentStart, recruitmentEnd, documentAcceptanceStart, documentAcceptanceEnd, 
-            interviewStart, interviewEnd, finalAcceptanceStart, finalAcceptanceEnd) {
+  changeInfo(mainBanner, title, introduction, order,
+    recruitmentStart, recruitmentEnd, documentAcceptanceStart, documentAcceptanceEnd, 
+    interviewStart, interviewEnd, finalAcceptanceStart, finalAcceptanceEnd) {
+    
     this.main_banner = mainBanner;
     this.title = title;
+    this.order = order;
     this.introduction = introduction;
     this.recruitment_start_period = recruitmentStart;
     this.recruitment_end_period = recruitmentEnd;
