@@ -12,6 +12,10 @@ class Recruiting extends Sequelize.Model {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      order: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       title: {
         type: Sequelize.TEXT,
         allowNull: false,
