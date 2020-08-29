@@ -1,5 +1,5 @@
 const resumeRepository = require('../infrastructure/resume_repository.js');
-const teamService = require('../../team/service/team_service.js');
+const teamService = require('../../recruitment/service/team_service');
 const applicantService = require('../../applicant/service/applicant_service.js');
 const questionService = require('../../applicant/service/question_service.js');
 const answerService = require('../../applicant/service/answer_service.js');
@@ -50,7 +50,8 @@ async function getResume(applicantId) {
 // TODO(sanghee): delete this function
 async function updateAllResume() {
   try {
-    const teamIdList = await teamService.getAllTeamsId();
+    // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
+    const teamIdList = await teamService.getTeams(1);
 
     for (const teamId of teamIdList) {
       await updateResumeHeaderList(teamId);
@@ -69,7 +70,8 @@ async function updateResumeHeaderList(teamId) {
     await questionService.clearQuestionList(teamId);
     await applicantService.clearAllApplicantList(teamId);
 
-    const team = await teamService.getTeam(teamId);
+    // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
+    const team = await teamService.getTeam(1, teamId);
     const sheetLink = team.getDataValue(SHEET_LINK);
     const sheetId = getSheetId(sheetLink);
 
