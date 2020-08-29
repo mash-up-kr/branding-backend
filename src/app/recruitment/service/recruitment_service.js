@@ -1,5 +1,4 @@
 const Recruiting = require('../domain/recruiting.js');
-const ROLE = require("../../../common/model/role.js");
 
 const getRecruitment = async () => {
   const latelyRecruiting = await Recruiting.findOne({
