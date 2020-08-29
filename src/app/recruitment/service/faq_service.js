@@ -1,14 +1,7 @@
 const FAQ = require('../domain/faq.js');
 const RECRUITING = require('../domain/recruiting.js');
-const ROLE = require('../../../common/model/role.js');
 
-const getFaq = async (role, recruitmentId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const getFaq = async (recruitmentId) => {
   const faqList = await FAQ.findAll({ where: { recruiting_id: recruitmentId}});
 
   const results = [];
@@ -24,13 +17,7 @@ const getFaq = async (role, recruitmentId) => {
   return results;
 };
 
-const insertFaq = async (role, recruitmentId, faq) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
+const insertFaq = async (recruitmentId, faq) => {
   const recruiting = await RECRUITING.findOne({
     where: {
       id: recruitmentId
@@ -52,14 +39,8 @@ const insertFaq = async (role, recruitmentId, faq) => {
   return result;
 };
 
-const deleteFaq = async (role, recruitmentId, faqId) => {
-  if(role != ROLE.ADMIN) {
-    const error = new Error('No Atuthentification');
-    error.status = 403;
-    throw error;
-  }
-
-  const result = await FAQ.destroy({
+const deleteFaq = async (recruitmentId, faqId) => {
+ const result = await FAQ.destroy({
     where: {
         id: faqId, recruiting_id: recruitmentId
     }
