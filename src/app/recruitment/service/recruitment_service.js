@@ -45,7 +45,7 @@ const updateRecruitment = async (recruitmentId, recruitment) => {
   let finalAcceptanceStart = timeCoverter.toDate(recruitment.final_acceptance_start);
   let finalAcceptanceEnd = timeCoverter.toDate(recruitment.final_acceptance_end);
 
-  latelyRecruiting.changeInfo(recruitment.main_banner, recruitment.title, 
+  latelyRecruiting.changeInfo(recruitment.banner, recruitment.title, 
     recruitment.introduction, recruitment.order, 
     recruitmentStart, recruitmentEnd, 
     documentAcceptanceStart, documentAcceptanceEnd,

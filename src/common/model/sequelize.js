@@ -1,5 +1,6 @@
+
 const {Sequelize, Op, QueryTypes} = require('sequelize');
-const QnA = require('../../app/recruitment/domain/qna.js');
+const FAQ = require('../../app/recruitment/domain/faq.js');
 const Team = require('../../app/team/domain/team.js');
 const Recruiting = require('../../app/recruitment/domain/recruiting.js');
 const User = require('../../app/user/domain/user.js');
@@ -21,7 +22,7 @@ db.QueryTypes = QueryTypes;
 
 db.User = User;
 db.Recruiting = Recruiting;
-db.QnA = QnA;
+db.FAQ = FAQ;
 db.Team = Team;
 db.Question = Question;
 db.Applicant = Applicant;
@@ -30,7 +31,7 @@ db.MailLog = MailLog;
 
 User.init(sequelize);
 Recruiting.init(sequelize);
-QnA.init(sequelize);
+FAQ.init(sequelize);
 Team.init(sequelize);
 Question.init(sequelize);
 Applicant.init(sequelize);
