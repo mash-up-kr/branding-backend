@@ -1,5 +1,5 @@
 const Recruitment = require('../../recruitment/domain/recruiting.js');
-const Team = require('../../team/domain/team.js');
+const Team = require('../../recruitment/domain/team.js');
 const APPLICATION_STATUS = require('../../applicant/domain/application_status.js');
 const Applicant = require('../../applicant/domain/applicant.js');
 const applicantStatusRepository = require('../infrastructure/applicant_status_repository.js');

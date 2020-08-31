@@ -44,6 +44,13 @@ class Team extends Sequelize.Model {
       tableName: 'teams',
     });
   }
+
+  changeInfo(name, resume_link, sheets_link, contents) {
+    this.name = name;
+    this.resume_link = resume_link;
+    this.sheets_link = sheets_link;
+    this.introduction = contents;
+  }
 }
 
 module.exports = Team;
