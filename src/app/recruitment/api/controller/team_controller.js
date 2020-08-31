@@ -6,7 +6,6 @@ const getTeams = async (req, res, next) => {
     const result = await teamService.getTeams(recruitmentId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -22,7 +21,6 @@ const getTeam = async (req, res, next) => {
     const result = await teamService.getTeam(recruitmentId, teamId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -38,7 +36,6 @@ const insertTeam = async (req, res, next) => {
     const result = await teamService.insertTeam(recruitmentId, team);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -54,7 +51,6 @@ const deleteTeam = async (req, res, next) => {
     const result = await teamService.deleteTeam(recruitmentId, teamId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -71,7 +67,6 @@ const updateTeam = async (req, res, next) => {
     const result = await teamService.updateTeam(recruitmentId, team, teamId);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {

@@ -1,14 +1,16 @@
 const Team = require('../domain/team.js');
+const timeCoverter = require('../../../util/time_coverter.js');
 
 const getTeams = async (recruitmentId) => {
   const teams = await Team.findAll({ where: { recruiting_id: recruitmentId}});
 
   const results = [];
   for(let i = 0; i < teams.length; i++) {
+    const updateTime = timeCoverter.toTimestamp(teams[i].update_time);
     const result = {
       id : teams[i].id,
       name : teams[i].name,
-      update_time : teams[i].update_time
+      update_time : updateTime,
     }
     results.push(result);
   }
