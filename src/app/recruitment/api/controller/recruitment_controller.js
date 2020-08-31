@@ -5,7 +5,6 @@ const getRecruitment = async (req, res, next) => {
     const result = await recruitmentService.getRecruitment();
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
@@ -21,7 +20,6 @@ const updateRecruitment = async (req, res, next) => {
     const result = await recruitmentService.updateRecruitment(recruitmentId, recruitment);
     res.status('200')
       .json({
-        code: 200,
         data: result,
       });
   } catch (err) {
