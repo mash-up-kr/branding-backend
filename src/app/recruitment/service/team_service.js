@@ -57,11 +57,13 @@ const deleteTeam = async (recruitmentId, teamId) => {
     }
   });
 
-  if(result >= 1) {
-    return 'success';
-  } else {
-    return 'fail';
+  if(!result) {
+    const error = new Error('Not Found Recruitment or Team');
+    error.status = 404;
+    throw error;
   }
+
+  return 'success';
 };
 
 const updateTeam = async (recruitmentId, team, teamId) => {
