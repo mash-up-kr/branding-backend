@@ -12,6 +12,10 @@ class Recruiting extends Sequelize.Model {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      order: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       title: {
         type: Sequelize.TEXT,
         allowNull: false,
@@ -67,6 +71,24 @@ class Recruiting extends Sequelize.Model {
       timestamps: false,
       tableName: 'recruiting',
     });
+  }
+
+  changeInfo(mainBanner, title, introduction, order,
+    recruitmentStart, recruitmentEnd, documentAcceptanceStart, documentAcceptanceEnd, 
+    interviewStart, interviewEnd, finalAcceptanceStart, finalAcceptanceEnd) {
+    
+    this.main_banner = mainBanner;
+    this.title = title;
+    this.order = order;
+    this.introduction = introduction;
+    this.recruitment_start_period = recruitmentStart;
+    this.recruitment_end_period = recruitmentEnd;
+    this.document_acceptance_start_period = documentAcceptanceStart;
+    this.document_acceptance_end_period = documentAcceptanceEnd;
+    this.interview_start_period = interviewStart;    
+    this.interview_end_period = interviewEnd;
+    this.final_acceptance_start_period = finalAcceptanceStart;
+    this.final_acceptance_end_period = finalAcceptanceEnd;
   }
 }
 
