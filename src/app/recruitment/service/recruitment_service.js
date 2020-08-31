@@ -25,7 +25,7 @@ const getRecruitment = async () => {
 const updateRecruitment = async (recruitmentId, recruitment) => {
   const latelyRecruiting = await Recruiting.findOne({ where: { id: recruitmentId }});
 
-  latelyRecruiting.changeInfo(recruitment.mainBanner, recruitment.title, 
+  latelyRecruiting.changeInfo(recruitment.main_banner, recruitment.title, 
     recruitment.order, recruitment.introduction,
     recruitment.recruitment_start, recruitment.recruitment_end, 
     recruitment.document_acceptance_start, recruitment.document_acceptance_end,
