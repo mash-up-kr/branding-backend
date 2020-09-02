@@ -2,7 +2,7 @@ const Team = require('../domain/team.js');
 const timeCoverter = require('../../../util/time_coverter.js');
 
 const getTeams = async (recruitmentId) => {
-  const teams = await Team.findAll({ where: { recruiting_id: recruitmentId}});
+  const teams = await Team.findAll({ where: { recruitment_id: recruitmentId}});
 
   const results = [];
   for(let i = 0; i < teams.length; i++) {
@@ -19,12 +19,12 @@ const getTeams = async (recruitmentId) => {
 }
 
 const getTeam = async (recruitmentId, teamId) => {
-  const team = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
+  const team = await Team.findOne({ where: { recruitment_id: recruitmentId, id: teamId }});
 
   return  {
     id: team.id,
     name: team.name,
-    recruiting_id: team.recruiting_id,
+    recruitment_id: team.recruitment_id,
     resume_link: team.resume_link,
     sheets_link: team.sheets_link,
     contents: team.introduction 
@@ -34,7 +34,7 @@ const getTeam = async (recruitmentId, teamId) => {
 const insertTeam = async (recruitmentId, team) => {
   const result = await Team.create({
     name: team.name,
-    recruiting_id: recruitmentId,
+    recruitment_id: recruitmentId,
     resume_link: team.resume_link,
     sheets_link: team.sheets_link,
     introduction: team.contents
@@ -43,7 +43,7 @@ const insertTeam = async (recruitmentId, team) => {
   return  {
     id: result.id,
     name: result.name,
-    recruiting_id: result.recruiting_id,
+    recruitment_id: result.recruitment_id,
     resume_link: result.resume_link,
     sheets_link: result.sheets_link,
     contents: result.introduction 
@@ -53,7 +53,7 @@ const insertTeam = async (recruitmentId, team) => {
 const deleteTeam = async (recruitmentId, teamId) => {
   const result = await Team.destroy({
     where: {
-        id: teamId, recruiting_id: recruitmentId
+        id: teamId, recruitment_id: recruitmentId
     }
   });
 
@@ -67,7 +67,7 @@ const deleteTeam = async (recruitmentId, teamId) => {
 };
 
 const updateTeam = async (recruitmentId, team, teamId) => {
-  const result = await Team.findOne({ where: { recruiting_id: recruitmentId, id: teamId }});
+  const result = await Team.findOne({ where: { recruitment_id: recruitmentId, id: teamId }});
 
   result.changeInfo(team.name, team.resume_link, team.sheets_link, team.contents);
 
@@ -80,7 +80,7 @@ const updateTeam = async (recruitmentId, team, teamId) => {
   return  {
     id: result.id,
     name: result.name,
-    recruiting_id: result.recruiting_id,
+    recruitment_id: result.recruitment_id,
     resume_link: result.resume_link,
     sheets_link: result.sheets_link,
     contents: result.introduction 

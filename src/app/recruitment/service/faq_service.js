@@ -1,8 +1,8 @@
 const FAQ = require('../domain/faq.js');
-const Recruiting = require('../domain/recruiting.js');
+const Recruitment = require('../domain/recruitment.js');
 
 const getFaq = async (recruitmentId) => {
-  const faqList = await FAQ.findAll({ where: { recruiting_id: recruitmentId}});
+  const faqList = await FAQ.findAll({ where: { recruitment_id: recruitmentId}});
 
   const results = [];
   for(let i = 0; i < faqList.length; i++) {
@@ -18,7 +18,7 @@ const getFaq = async (recruitmentId) => {
 };
 
 const insertFaq = async (recruitmentId, faq) => {
-  const recruiting = await Recruiting.findOne({
+  const recruiting = await Recruitment.findOne({
     where: {
       id: recruitmentId
     }
@@ -31,7 +31,7 @@ const insertFaq = async (recruitmentId, faq) => {
   }
 
   const result = await FAQ.create({
-    recruiting_id: recruitmentId,
+    recruitment_id: recruitmentId,
     question: faq.question,
     answer: faq.answer,
   });
@@ -46,7 +46,7 @@ const insertFaq = async (recruitmentId, faq) => {
 const deleteFaq = async (recruitmentId, faqId) => {
  const result = await FAQ.destroy({
     where: {
-        id: faqId, recruiting_id: recruitmentId
+        id: faqId, recruitment_id: recruitmentId
     }
   })
   

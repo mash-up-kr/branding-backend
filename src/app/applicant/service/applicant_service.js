@@ -1,4 +1,4 @@
-const Recruitment = require('../../recruitment/domain/recruiting.js');
+const Recruitment = require('../../recruitment/domain/recruitment.js');
 const Team = require('../../recruitment/domain/team.js');
 const APPLICATION_STATUS = require('../../applicant/domain/application_status.js');
 const Applicant = require('../../applicant/domain/applicant.js');
