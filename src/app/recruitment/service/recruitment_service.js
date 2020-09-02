@@ -1,8 +1,8 @@
-const Recruiting = require('../domain/recruiting.js');
+const Recruitment = require('../domain/recruitment.js');
 const timeCoverter = require('../../../util/time_coverter.js');
 
 const getRecruitment = async () => {
-  const latelyRecruiting = await Recruiting.findOne({
+  const latelyRecruiting = await Recruitment.findOne({
     limit: 1,
     order: [[ 'id', 'DESC' ]]
   });
@@ -34,7 +34,7 @@ const getRecruitment = async () => {
 };
 
 const updateRecruitment = async (recruitmentId, recruitment) => {
-  const latelyRecruiting = await Recruiting.findOne({ where: { id: recruitmentId }});
+  const latelyRecruiting = await Recruitment.findOne({ where: { id: recruitmentId }});
 
   let recruitmentStart = timeCoverter.toDate(recruitment.recruitment_start);
   let recruitmentEnd = timeCoverter.toDate(recruitment.recruitment_end);

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-class Recruiting extends Sequelize.Model {
+class Recruitment extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
@@ -69,7 +69,7 @@ class Recruiting extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'recruiting',
+      tableName: 'recruitment',
     });
   }
 
@@ -92,4 +92,4 @@ class Recruiting extends Sequelize.Model {
   }
 }
 
-module.exports = Recruiting;
+module.exports = Recruitment;
