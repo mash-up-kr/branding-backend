@@ -1,11 +1,11 @@
-const mailSender = require('../infrastructure/mail_sender');
+const mailSender = require('../infrastructure/email_sender');
 const ROLE = require('../../../common/model/role');
 const db = require('../../../common/model/sequelize');
-const Mail = require('../domain/mail.js');
+const Mail = require('../domain/email.js');
 const SEND_STATUS = require('../domain/send_status');
 const Applicant = require('../../applicant/domain/applicant.js');
 
-const sendMail = async (team, application_status, users, title, contents) => {
+const sendEmail = async (team, application_status, users, title, contents) => {
   const ids = users.map(e => e.id);
   const applicants = await Applicant.findAll({
     where: {
@@ -19,7 +19,7 @@ const sendMail = async (team, application_status, users, title, contents) => {
   const rejectedArray = [];
 
   for(let i = 0; i < applicants.length; i++) {
-    const result = await mailSender.sendMail(team, application_status, applicants[i], title, contents);
+    const result = await mailSender.senEmail(team, application_status, applicants[i], title, contents);
   
     if(result) {
       acceptedArray.push(applicants[i]);
@@ -48,5 +48,5 @@ const saveMailLog = async (SEND_STATUS, array, team, title, contents) => {
 }
 
 module.exports = {
-  sendMail,
+  sendEmail,
 };

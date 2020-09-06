@@ -7,7 +7,7 @@ const User = require('../../app/user/domain/user.js');
 const Question = require('../../app/applicant/domain/question.js');
 const Applicant = require('../../app/applicant/domain/applicant.js');
 const Answer = require('../../app/applicant/domain/answer.js');
-const Mail = require('../../app/mail/domain/mail.js');
+const Email = require('../../app/email/domain/email.js');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + './../../../config/config.json')[env];
@@ -27,7 +27,7 @@ db.Team = Team;
 db.Question = Question;
 db.Applicant = Applicant;
 db.Answer = Answer;
-db.Mail = Mail;
+db.Email = Email;
 
 User.init(sequelize);
 Recruitment.init(sequelize);
@@ -36,6 +36,6 @@ Team.init(sequelize);
 Question.init(sequelize);
 Applicant.init(sequelize);
 Answer.init(sequelize);
-Mail.init(sequelize);
+Email.init(sequelize);
 
 module.exports = db;
