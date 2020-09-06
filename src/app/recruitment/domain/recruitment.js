@@ -69,7 +69,7 @@ class Recruitment extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'recruitment',
+      tableName: 'recruitments',
     });
   }
 

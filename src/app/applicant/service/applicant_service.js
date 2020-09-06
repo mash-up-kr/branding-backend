@@ -15,7 +15,7 @@ async function getApplicantList(teamId, applicantStatus) {
   const teamList = await Team.findAll({
     attributes: ['id', 'name'],
     where: {
-      recruiting_id: latelyRecruitment.id,
+      recruitment_id: latelyRecruitment.id,
     },
   });
 
@@ -25,7 +25,7 @@ async function getApplicantList(teamId, applicantStatus) {
   const parsedApplicantList = applicantList.map(item => ({
     id: item.id,
     team: {
-      id: item.teams_id,
+      id: item.team_id,
       name: item.teams_name,
     },
     name: item.name,
@@ -50,7 +50,7 @@ async function getApplicantList(teamId, applicantStatus) {
 async function createApplicant(applicant) {
   try {
     const result = await Applicant.create({
-      teams_id: applicant.teams_id,
+      team_id: applicant.team_id,
       application_status: APPLICATION_STATUS.APPLICATION_COMPLETION,
       name: applicant.name,
       email: applicant.email,
@@ -115,7 +115,7 @@ async function clearAllApplicantList(teamId) {
   try {
     await Applicant.destroy({
       where: {
-        teams_id: teamId,
+        team_id: teamId,
       },
     });
   } catch (err) {

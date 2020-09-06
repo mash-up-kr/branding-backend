@@ -8,7 +8,7 @@ class Question extends Sequelize.Model {
         primaryKey: true,
         autoIncrement: true,
       },
-      teams_id: {
+      team_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

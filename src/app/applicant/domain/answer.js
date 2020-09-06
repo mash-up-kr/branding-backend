@@ -3,11 +3,11 @@ const Sequelize = require('sequelize');
 class Answer extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      questions_id: {
+      question_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
-      applicants_id: {
+      applicant_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
