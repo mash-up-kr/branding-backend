@@ -1,6 +1,7 @@
 const Question = require('../domain/question.js');
 const answerService = require('../service/answer_service.js');
 const db = require('../../../common/model/sequelize.js');
+const HttpError = require('http-errors');
 
 async function clearQuestionList(teamId) {
   const transaction = await db.sequelize.transaction();
@@ -27,7 +28,7 @@ async function clearQuestionList(teamId) {
   } catch (err) {
     await transaction.rollback();
     console.error(err);
-    throw Error('Error while delete questions'); // 500
+    throw HttpError(500, 'Error while delete questions');
   }
 }
 
@@ -50,7 +51,7 @@ async function createQuestionList(teamId, headerList) {
   } catch (err) {
     await transaction.rollback();
     console.error(err);
-    throw Error('Error while create questions'); // 500
+    throw HttpError(500, 'Error while create questions');
   }
 
   return list;
@@ -74,13 +75,12 @@ async function getQuestionIdList(teamId) {
     }
 
     if (questionIdList.length === 0) {
-      throw Error(`Can't find questions`); // 404
+      throw HttpError(404, `Can't find questions`);
     }
 
     return questionIdList;
   } catch (err) {
-    console.error(err);
-    throw Error('Error while get question id list'); // 404 || 500
+    throw HttpError(err.status || 500, err.message || 'Error while get question id list'); // 404 || 500
   }
 }
 

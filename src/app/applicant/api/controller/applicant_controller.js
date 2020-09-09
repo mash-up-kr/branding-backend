@@ -10,11 +10,7 @@ async function getApplicantList(req, res, next) {
       data: result,
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      code: 400,
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -26,11 +22,7 @@ async function getResume(req, res, next) {
       data: result,
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      code: 400,
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -43,11 +35,7 @@ async function changeApplicantStatus(req, res, next) {
       data: result,
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      code: 400,
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -59,11 +47,7 @@ async function changeApplicantListStatus(req, res, next) {
       data: result,
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      code: 400,
-      message: err.message,
-    });
+    next(err);
   }
 }
 
@@ -75,11 +59,7 @@ async function updateApplicants(req, res, next) {
       data: {},
     });
   } catch (err) {
-    console.error(err);
-    res.status(400).json({
-      code: 400,
-      message: err.message,
-    });
+    next(err);
   }
 }
 

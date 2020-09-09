@@ -4,6 +4,7 @@ const applicantService = require('../../applicant/service/applicant_service.js')
 const questionService = require('../../applicant/service/question_service.js');
 const answerService = require('../../applicant/service/answer_service.js');
 const googleSheetRepository = require('../infrastructure/google_sheet_repository.js');
+const HttpError = require('http-errors');
 
 const SHEET_LINK = 'sheets_link';
 const EMAIL_INDEX = 1;
@@ -15,7 +16,7 @@ async function getResume(applicantId) {
     const resumeList = await resumeRepository.findOneResume(applicantId);
 
     if (!resumeList || resumeList.length === 0) {
-      throw Error(); // 404
+      throw HttpError(404, `Can't find a resume`); // 404
     }
 
     const qnaList = [];
@@ -42,8 +43,7 @@ async function getResume(applicantId) {
     };
     return result;
   } catch (err) {
-    console.error(err);
-    throw Error('Error while find a resume'); // 500 or 404
+    throw HttpError(err.status || 500, err.message || 'Error while find a resume'); // 500 or 404
   }
 }
 
@@ -59,8 +59,7 @@ async function updateAllResume() {
     }
 
   } catch (err) {
-    console.error(err);
-    throw Error('Error while update all resume');
+    throw HttpError(500, 'Error while update all resume');
   }
 }
 
@@ -78,8 +77,7 @@ async function updateResumeHeaderList(teamId) {
     const headerList = await googleSheetRepository.getHeaderList(sheetId);
     await questionService.createQuestionList(teamId, headerList);
   } catch (err) {
-    console.error(err);
-    throw Error('Error while update headers');
+    throw HttpError(500, 'Error while update headers');
   }
 }
 
@@ -104,8 +102,7 @@ async function updateResumeList(teamId) {
     }
 
   } catch (err) {
-    console.error(err);
-    throw Error('Error while update headers');
+    throw HttpError(500, 'Error while update headers');
   }
 }
 
@@ -115,7 +112,7 @@ function getSheetId(sheetLink) {
     const sheetId = splits[5];
     return sheetId;
   } else {
-    throw Error(`Can't find sheet id from sheet link`);
+    throw HttpError(404, `Can't find sheet id from sheet link`);
   }
 }
 
