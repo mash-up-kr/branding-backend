@@ -1,5 +1,6 @@
 const Team = require('../domain/team.js');
 const timeCoverter = require('../../../util/time_coverter.js');
+const HttpError = require('http-errors');
 
 const getTeams = async (recruitmentId) => {
   const teams = await Team.findAll({ where: { recruitment_id: recruitmentId}});
@@ -27,7 +28,7 @@ const getTeam = async (recruitmentId, teamId) => {
     recruitment_id: team.recruitment_id,
     resume_link: team.resume_link,
     sheets_link: team.sheets_link,
-    contents: team.introduction 
+    contents: team.introduction
   };
 }
 
@@ -46,7 +47,7 @@ const insertTeam = async (recruitmentId, team) => {
     recruitment_id: result.recruitment_id,
     resume_link: result.resume_link,
     sheets_link: result.sheets_link,
-    contents: result.introduction 
+    contents: result.introduction
   };
 };
 
@@ -58,9 +59,7 @@ const deleteTeam = async (recruitmentId, teamId) => {
   });
 
   if(!result) {
-    const error = new Error('Not Found Recruitment or Team');
-    error.status = 404;
-    throw error;
+    throw HttpError(404, 'Not Found Recruitment or Team');
   }
 
   return 'success';
@@ -83,7 +82,7 @@ const updateTeam = async (recruitmentId, team, teamId) => {
     recruitment_id: result.recruitment_id,
     resume_link: result.resume_link,
     sheets_link: result.sheets_link,
-    contents: result.introduction 
+    contents: result.introduction
   };
 };
 
