@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const SEND_STATUS = require('./send_status.js');
 
-class MailLog extends Sequelize.Model {
+class Email extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
@@ -46,9 +46,9 @@ class MailLog extends Sequelize.Model {
     }, {
       sequelize,
       timestamps: false,
-      tableName: 'mail_logs'
+      tableName: 'emails'
     })
   }
 }
 
-module.exports = MailLog;
+module.exports = Email;

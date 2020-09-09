@@ -30,8 +30,8 @@ async function getResume(applicantId) {
     const result = {
       id: resumeList[0].id,
       team: {
-        id: resumeList[0].teams_id,
-        name: resumeList[0].teams_name,
+        id: resumeList[0].team_id,
+        name: resumeList[0].team_name,
       },
       name: resumeList[0].name,
       email: resumeList[0].email,
@@ -124,7 +124,7 @@ function parseDataList(teamId, dataList) {
 
   for (let j = 0; j < dataList.length; j++) {
     const obj = {
-      teams_id: teamId,
+      team_id: teamId,
       name: dataList[j][NAME_INDEX],
       email: dataList[j][EMAIL_INDEX],
       phone: dataList[j][PHONE_INDEX],

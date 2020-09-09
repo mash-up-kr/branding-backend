@@ -1,12 +1,12 @@
 const db = require('../../../common/model/sequelize.js');
 
-const findAllApplicants = async recruitingId => {
-  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
+const findAllApplicants = async recruitmentId => {
+  const query = 'SELECT a.id, t.id as team_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
       'FROM teams as t ' +
-      'JOIN applicants as a ON t.id = a.teams_id ' +
-      'WHERE t.recruiting_id = :recruitingId';
+      'JOIN applicants as a ON t.id = a.team_id ' +
+      'WHERE t.recruitment_id = :recruitmentId';
   const options = {
-    replacements: {recruitingId},
+    replacements: {recruitmentId},
     type: db.QueryTypes.SELECT,
     raw: true,
   };
@@ -15,15 +15,15 @@ const findAllApplicants = async recruitingId => {
   return result;
 };
 
-const findAllApplicantStatusByValue = async (recruitingId, value) => {
-  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
+const findAllApplicantStatusByValue = async (recruitmentId, value) => {
+  const query = 'SELECT a.id, t.id as team_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
       'FROM teams as t ' +
-      'JOIN applicants as a ON t.id = a.teams_id ' +
-      'WHERE t.recruiting_id = :recruitingId AND a.name LIKE :value OR a.email LIKE :value ' +
+      'JOIN applicants as a ON t.id = a.team_id ' +
+      'WHERE t.recruitment_id = :recruitmentId AND a.name LIKE :value OR a.email LIKE :value ' +
       'GROUP BY a.id';
   const options = {
     replacements: {
-      recruitingId,
+      recruitmentId,
       value: '%' + value + '%',
     },
     type: db.QueryTypes.SELECT,
@@ -34,13 +34,13 @@ const findAllApplicantStatusByValue = async (recruitingId, value) => {
   return result;
 };
 
-const findAllApplicantStatusByTeams = async (recruitingId, teamsId) => {
-  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
+const findAllApplicantStatusByTeams = async (recruitmentId, teamsId) => {
+  const query = 'SELECT a.id, t.id as team_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
       'FROM teams as t ' +
-      'JOIN applicants as a ON t.id = a.teams_id ' +
-      'WHERE t.recruiting_id = :recruitingId AND a.teams_id = :teamsId';
+      'JOIN applicants as a ON t.id = a.team_id ' +
+      'WHERE t.recruitment_id = :recruitmentId AND a.team_id = :teamsId';
   const options = {
-    replacements: {recruitingId, teamsId},
+    replacements: {recruitmentId, teamsId},
     type: db.QueryTypes.SELECT,
     raw: true,
   };
@@ -49,13 +49,13 @@ const findAllApplicantStatusByTeams = async (recruitingId, teamsId) => {
   return result;
 };
 
-const findAllApplicantStatusByStatus = async (recruitingId, applicationStatus) => {
-  const query = 'SELECT a.id, t.id as teams_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
+const findAllApplicantStatusByStatus = async (recruitmentId, applicationStatus) => {
+  const query = 'SELECT a.id, t.id as team_id, t.name as teams_name, a.name, a.email, a.phone, a.application_status, a.application_time ' +
       'FROM teams as t ' +
-      'JOIN applicants as a ON t.id = a.teams_id ' +
-      'WHERE t.recruiting_id = :recruitingId AND a.application_status = :applicationStatus';
+      'JOIN applicants as a ON t.id = a.team_id ' +
+      'WHERE t.recruitment_id = :recruitmentId AND a.application_status = :applicationStatus';
   const options = {
-    replacements: {recruitingId, applicationStatus},
+    replacements: {recruitmentId, applicationStatus},
     type: db.QueryTypes.SELECT,
     raw: true,
   };

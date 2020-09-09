@@ -7,7 +7,7 @@ async function clearQuestionList(teamId) {
   try {
     const questionList = await Question.findAll({
       where: {
-        teams_id: teamId,
+        team_id: teamId,
       },
       transaction,
     });
@@ -38,7 +38,7 @@ async function createQuestionList(teamId, headerList) {
   try {
     for (let i = 0; i < headerList.length; i++) {
       const result = await Question.create({
-        teams_id: teamId,
+        team_id: teamId,
         number: i + 1,
         content: headerList[i],
       }, {
@@ -60,7 +60,7 @@ async function getQuestionIdList(teamId) {
   try {
     const questionList = await Question.findAll({
       where: {
-        teams_id: teamId,
+        team_id: teamId,
       },
     });
 

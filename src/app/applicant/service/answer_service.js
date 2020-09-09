@@ -4,7 +4,7 @@ async function clearAnswerList(questionId, transaction) {
   try {
     const result = await Answer.destroy({
       where: {
-        questions_id: questionId,
+        question_id: questionId,
       },
       transaction,
     });
@@ -18,8 +18,8 @@ async function clearAnswerList(questionId, transaction) {
 async function createAnswer(questionId, applicantId, content) {
   try {
     const answer = await Answer.create({
-      questions_id: questionId,
-      applicants_id: applicantId,
+      question_id: questionId,
+      applicant_id: applicantId,
       content: content,
     });
     return answer;

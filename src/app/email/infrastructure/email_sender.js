@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const mailConfig = require('../../../../config/mail-config.json');
 
-const sendMail = async (team, application_status, applicant, title, contents) => {
+const senEmail = async (team, application_status, applicant, title, contents) => {
   const transporter = nodemailer.createTransport({
     service: mailConfig.service,
     host: mailConfig.host,
@@ -31,5 +31,5 @@ const sendMail = async (team, application_status, applicant, title, contents) =>
 }
   
 module.exports = {
-  sendMail
+  senEmail
 };

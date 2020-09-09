@@ -8,7 +8,7 @@ class Team extends Sequelize.Model {
         primaryKey: true,
         autoIncrement: true,
       },
-      recruiting_id: {
+      recruitment_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
