@@ -51,7 +51,10 @@ async function getResume(applicantId) {
 async function updateAllResume() {
   try {
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
-    const teamIdList = await teamService.getTeams(1);
+    const teamList = await teamService.getTeams(1);
+    const teamIdList = teamList.map(team => {
+      return team.id;
+    });
 
     for (const teamId of teamIdList) {
       await updateResumeHeaderList(teamId);
@@ -72,7 +75,7 @@ async function updateResumeHeaderList(teamId) {
 
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
     const team = await teamService.getTeam(1, teamId);
-    const sheetLink = team.getDataValue(SHEET_LINK);
+    const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
 
     const headerList = await googleSheetRepository.getHeaderList(sheetId);
@@ -86,8 +89,8 @@ async function updateResumeHeaderList(teamId) {
 async function updateResumeList(teamId) {
   // TODO(sanghee): Need transaction
   try {
-    const team = await teamService.getTeam(teamId);
-    const sheetLink = team.getDataValue(SHEET_LINK);
+    const team = await teamService.getTeam(1, teamId);
+    const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
 
     const dataList = await googleSheetRepository.getDataList(sheetId);
