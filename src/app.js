@@ -10,14 +10,17 @@ app.use(cors());
 app.use('/api', appRouter);
 
 app.use((req, res, next) => {
-  const error =  new Error('Bad Request');
+  const error = new Error('Bad Request');
   error.status = 404;
   next(error);
 });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(err.status).send({status: err.status, message: err.message});
+  res.status(err.status || 500).send({
+    code: err.status,
+    message: err.message,
+  });
 });
 
 app.listen(PORT, () => {

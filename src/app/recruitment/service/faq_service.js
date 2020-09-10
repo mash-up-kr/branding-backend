@@ -1,5 +1,6 @@
 const FAQ = require('../domain/faq.js');
 const Recruitment = require('../domain/recruitment.js');
+const HttpError = require('http-errors');
 
 const getFaq = async (recruitmentId) => {
   const faqList = await FAQ.findAll({ where: { recruitment_id: recruitmentId}});
@@ -25,9 +26,7 @@ const insertFaq = async (recruitmentId, faq) => {
   });
 
   if(!recruiting) {
-    const error = new Error('Not Found Recruitment');
-    error.status = 404;
-    throw error;
+    throw HttpError(404, 'Not Found Recruitment');
   }
 
   const result = await FAQ.create({
@@ -49,11 +48,9 @@ const deleteFaq = async (recruitmentId, faqId) => {
         id: faqId, recruitment_id: recruitmentId
     }
   })
-  
+
   if(!result) {
-    const error = new Error('Not Found Recruitment or FAQ');
-    error.status = 404;
-    throw error;
+    throw HttpError(404, 'Not Found Recruitment or FAQ');
   }
 
   return 'success';

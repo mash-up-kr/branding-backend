@@ -4,6 +4,7 @@ const APPLICATION_STATUS = require('../../applicant/domain/application_status.js
 const Applicant = require('../../applicant/domain/applicant.js');
 const applicantStatusRepository = require('../infrastructure/applicant_status_repository.js');
 const db = require('../../../common/model/sequelize.js');
+const HttpError = require('http-errors');
 
 // TODO(sanghee): Need to support filter options (team_id, status)
 async function getApplicantList(teamId, applicantStatus) {
@@ -58,8 +59,7 @@ async function createApplicant(applicant) {
     });
     return result;
   } catch (err) {
-    console.error(err);
-    throw Error('Error while create applicant'); // 500
+    throw HttpError(500, 'Error while create applicant');
   }
 }
 
@@ -71,14 +71,13 @@ async function changeApplicantStatus(applicantId, applicationStatus) {
   });
 
   if (!applicant) {
-    throw Error(`Error while find applicant by id`); // 404
+    throw HttpError(404, `Error while find applicant by id`);
   }
 
   try {
     await applicant.update({application_status: applicationStatus, update_time: Date.now()});
   } catch (err) {
-    console.error(err);
-    throw Error('Error while update applicant status'); // 500
+    throw HttpError(500, 'Error while update applicant status');
   }
 
   return {status: applicationStatus};
@@ -105,8 +104,7 @@ async function changeApplicantListStatus(applicantIdList, applicationStatus) {
     await transaction.commit();
   } catch (error) {
     await transaction.rollback();
-    console.error(err);
-    throw Error('Error while update applicants status'); // 500
+    throw HttpError(500, 'Error while update applicants status'); // 500
   }
   return {status: applicationStatus};
 }
@@ -119,7 +117,7 @@ async function clearAllApplicantList(teamId) {
       },
     });
   } catch (err) {
-    throw Error(`Error while delete all applicants (teamId:${teamId}`); // 500
+    throw HttpError(500, `Error while delete all applicants (teamId:${teamId})`);
   }
 }
 

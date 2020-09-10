@@ -1,4 +1,5 @@
 const Answer = require('../domain/answer.js');
+const HttpError = require('http-errors');
 
 async function clearAnswerList(questionId, transaction) {
   try {
@@ -10,7 +11,7 @@ async function clearAnswerList(questionId, transaction) {
     });
   } catch (err) {
     console.error(err);
-    throw Error('Error while delete answers'); // 500
+    throw HttpError(500, 'Error while delete answers'); // 500
   }
   return true;
 }
@@ -25,7 +26,7 @@ async function createAnswer(questionId, applicantId, content) {
     return answer;
   } catch (err) {
     console.error(err);
-    throw Error('Error while create answer'); // 500
+    throw HttpError(500, 'Error while create answer'); // 500
   }
 }
 
