@@ -38,6 +38,7 @@ const insertTeam = async (recruitmentId, team) => {
     recruitment_id: recruitmentId,
     resume_link: team.resume_link,
     sheets_link: team.sheets_link,
+    sheets_row: 0,
     introduction: team.contents
   });
 
@@ -57,7 +58,7 @@ const deleteTeam = async (recruitmentId, teamId) => {
       id: teamId, recruitment_id: recruitmentId,
     },
   });
-  
+
   if(!result) {
     throw HttpError(404, 'Not Found Recruitment or Team');
   }
