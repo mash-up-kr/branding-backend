@@ -24,6 +24,10 @@ class Team extends Sequelize.Model {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      sheets_row: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       introduction: {
         type: Sequelize.TEXT,
         allowNull: false,
