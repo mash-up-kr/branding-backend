@@ -1,5 +1,7 @@
 const applicantService = require('../../service/applicant_service.js');
 const resumeService = require('../../service/resume_service.js');
+const HttpError = require('http-errors');
+let updateApplicantsMutex = false;
 
 async function getApplicantList(req, res, next) {
   const {team: teamId, status: applicantStatus} = req.query;
@@ -51,15 +53,22 @@ async function changeApplicantListStatus(req, res, next) {
   }
 }
 
-// TODO(sanghee): req.teamId?
 async function updateApplicants(req, res, next) {
+  if (updateApplicantsMutex) {
+    next(HttpError(500, 'Already processing request'));
+    return;
+  }
+
   try {
-    // await resumeService.updateAllResume();
+    updateApplicantsMutex = true;
+    await resumeService.updateAllResume();
     res.status(200).json({
       data: {},
     });
   } catch (err) {
     next(err);
+  } finally {
+    updateApplicantsMutex = false;
   }
 }
 
