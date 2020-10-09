@@ -4,6 +4,7 @@ const applicantService = require('../../applicant/service/applicant_service.js')
 const questionService = require('../../applicant/service/question_service.js');
 const answerService = require('../../applicant/service/answer_service.js');
 const googleSheetRepository = require('../infrastructure/google_sheet_repository.js');
+const recruitmentService = require('../../recruitment/service/recruitment_service');
 const HttpError = require('http-errors');
 
 const SHEET_LINK = 'sheets_link';
@@ -50,15 +51,18 @@ async function getResume(applicantId) {
 // TODO(sanghee): delete this function
 async function updateAllResume() {
   try {
+    // Get current recruitment
+    const currRecruitment = await recruitmentService.getRecruitment();
+    const currRecruitmentId = currRecruitment.id;
+
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
-    const teamList = await teamService.getTeams(1);
+    const teamList = await teamService.getTeams(currRecruitmentId);
     const teamIdList = teamList.map(team => {
       return team.id;
     });
 
     for (const teamId of teamIdList) {
-      await updateResumeHeaderList(teamId);
-      await updateResumeList(teamId);
+      await updateResumeList(teamId, currRecruitmentId);
     }
 
   } catch (err) {
@@ -66,14 +70,14 @@ async function updateAllResume() {
   }
 }
 
-async function updateResumeHeaderList(teamId) {
+async function updateResumeHeaderList(teamId, recruitmentId) {
   // TODO(sanghee): Need transaction
   try {
-    await questionService.clearQuestionList(teamId);
-    await applicantService.clearAllApplicantList(teamId);
+    // await questionService.clearQuestionList(teamId);
+    // await applicantService.clearAllApplicantList(teamId);
 
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
-    const team = await teamService.getTeam(1, teamId);
+    const team = await teamService.getTeam(recruitmentId, teamId);
     const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
 
@@ -84,17 +88,18 @@ async function updateResumeHeaderList(teamId) {
   }
 }
 
-async function updateResumeList(teamId) {
+async function updateResumeList(teamId, recruitmentId) {
   // TODO(sanghee): Need transaction
   try {
-    const team = await teamService.getTeam(1, teamId);
+    const team = await teamService.getTeam(recruitmentId, teamId);
     const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
+    const sheetsRow = team.sheets_row;
 
     const dataList = await googleSheetRepository.getDataList(sheetId);
     const applicantList = parseDataList(teamId, dataList);
 
-    for (let i = 0; i < applicantList.length; i++) {
+    for (let i = sheetsRow; i < applicantList.length; i++) {
       const applicant = applicantList[i];
       const newApplicant = await applicantService.createApplicant(applicant);
       const newApplicantId = newApplicant.getDataValue('id');
@@ -103,7 +108,7 @@ async function updateResumeList(teamId) {
         await answerService.createAnswer(questionIdList[j], newApplicantId, dataList[i][j]);
       }
     }
-
+    await teamService.updateSheetsRow(recruitmentId, teamId, applicantList.length);
   } catch (err) {
     throw HttpError(500, 'Error while update headers');
   }
@@ -138,4 +143,5 @@ function parseDataList(teamId, dataList) {
 module.exports = {
   getResume,
   updateAllResume,
+  updateResumeHeaderList,
 };
