@@ -1,5 +1,7 @@
 const Team = require('../domain/team.js');
 const timeCoverter = require('../../../util/time_coverter.js');
+const questionService = require('../../applicant/service/question_service');
+const applicantService = require('../../applicant/service/applicant_service');
 const HttpError = require('http-errors');
 
 const getTeams = async (recruitmentId) => {
@@ -53,6 +55,9 @@ const insertTeam = async (recruitmentId, team) => {
 };
 
 const deleteTeam = async (recruitmentId, teamId) => {
+  await questionService.clearQuestionList(teamId);
+  await applicantService.clearAllApplicantList(teamId);
+
   const result = await Team.destroy({
     where: {
       id: teamId, recruitment_id: recruitmentId,
