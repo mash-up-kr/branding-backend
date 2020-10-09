@@ -54,7 +54,7 @@ async function changeApplicantListStatus(req, res, next) {
 // TODO(sanghee): req.teamId?
 async function updateApplicants(req, res, next) {
   try {
-    await resumeService.updateAllResume();
+    // await resumeService.updateAllResume();
     res.status(200).json({
       data: {},
     });

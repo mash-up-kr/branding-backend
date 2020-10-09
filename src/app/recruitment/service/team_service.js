@@ -2,6 +2,7 @@ const Team = require('../domain/team.js');
 const timeCoverter = require('../../../util/time_coverter.js');
 const questionService = require('../../applicant/service/question_service');
 const applicantService = require('../../applicant/service/applicant_service');
+const resumeService = require('../../applicant/service/resume_service');
 const HttpError = require('http-errors');
 
 const getTeams = async (recruitmentId) => {
@@ -43,6 +44,9 @@ const insertTeam = async (recruitmentId, team) => {
     sheets_row: 0,
     introduction: team.contents
   });
+
+  const teamId = result.id;
+  await resumeService.updateResumeHeaderList(teamId, recruitmentId);
 
   return {
     id: result.id,

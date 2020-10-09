@@ -4,6 +4,7 @@ const applicantService = require('../../applicant/service/applicant_service.js')
 const questionService = require('../../applicant/service/question_service.js');
 const answerService = require('../../applicant/service/answer_service.js');
 const googleSheetRepository = require('../infrastructure/google_sheet_repository.js');
+const recruitmentService = require('../../recruitment/service/recruitment_service');
 const HttpError = require('http-errors');
 
 const SHEET_LINK = 'sheets_link';
@@ -50,14 +51,18 @@ async function getResume(applicantId) {
 // TODO(sanghee): delete this function
 async function updateAllResume() {
   try {
+    // Get current recruitment
+    const currRecruitment = await recruitmentService.getRecruitment();
+    const currRecruitmentId = currRecruitment.id;
+
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
-    const teamList = await teamService.getTeams(1);
+    const teamList = await teamService.getTeams(currRecruitmentId);
     const teamIdList = teamList.map(team => {
       return team.id;
     });
 
     for (const teamId of teamIdList) {
-      await updateResumeHeaderList(teamId);
+      await updateResumeHeaderList(teamId, currRecruitmentId);
       await updateResumeList(teamId);
     }
 
@@ -66,14 +71,14 @@ async function updateAllResume() {
   }
 }
 
-async function updateResumeHeaderList(teamId) {
+async function updateResumeHeaderList(teamId, recruitmentId) {
   // TODO(sanghee): Need transaction
   try {
-    await questionService.clearQuestionList(teamId);
-    await applicantService.clearAllApplicantList(teamId);
+    // await questionService.clearQuestionList(teamId);
+    // await applicantService.clearAllApplicantList(teamId);
 
     // TODO 최신의 모집공고 아이디 들고와서 팀 조회하기
-    const team = await teamService.getTeam(1, teamId);
+    const team = await teamService.getTeam(recruitmentId, teamId);
     const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
 
@@ -137,5 +142,7 @@ function parseDataList(teamId, dataList) {
 
 module.exports = {
   getResume,
-  updateAllResume,
+  // updateAllResume,
+  updateResumeHeaderList,
+  updateResumeList,
 };
