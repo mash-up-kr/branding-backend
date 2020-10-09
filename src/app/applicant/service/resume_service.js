@@ -62,8 +62,7 @@ async function updateAllResume() {
     });
 
     for (const teamId of teamIdList) {
-      await updateResumeHeaderList(teamId, currRecruitmentId);
-      await updateResumeList(teamId);
+      await updateResumeList(teamId, currRecruitmentId);
     }
 
   } catch (err) {
@@ -89,17 +88,18 @@ async function updateResumeHeaderList(teamId, recruitmentId) {
   }
 }
 
-async function updateResumeList(teamId) {
+async function updateResumeList(teamId, recruitmentId) {
   // TODO(sanghee): Need transaction
   try {
-    const team = await teamService.getTeam(1, teamId);
+    const team = await teamService.getTeam(recruitmentId, teamId);
     const sheetLink = team.sheets_link;
     const sheetId = getSheetId(sheetLink);
+    const sheetsRow = team.sheets_row;
 
     const dataList = await googleSheetRepository.getDataList(sheetId);
     const applicantList = parseDataList(teamId, dataList);
 
-    for (let i = 0; i < applicantList.length; i++) {
+    for (let i = sheetsRow; i < applicantList.length; i++) {
       const applicant = applicantList[i];
       const newApplicant = await applicantService.createApplicant(applicant);
       const newApplicantId = newApplicant.getDataValue('id');
@@ -108,7 +108,7 @@ async function updateResumeList(teamId) {
         await answerService.createAnswer(questionIdList[j], newApplicantId, dataList[i][j]);
       }
     }
-
+    await teamService.updateSheetsRow(recruitmentId, teamId, applicantList.length);
   } catch (err) {
     throw HttpError(500, 'Error while update headers');
   }
@@ -142,7 +142,6 @@ function parseDataList(teamId, dataList) {
 
 module.exports = {
   getResume,
-  // updateAllResume,
+  updateAllResume,
   updateResumeHeaderList,
-  updateResumeList,
 };

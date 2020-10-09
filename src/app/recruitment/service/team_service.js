@@ -2,7 +2,6 @@ const Team = require('../domain/team.js');
 const timeCoverter = require('../../../util/time_coverter.js');
 const questionService = require('../../applicant/service/question_service');
 const applicantService = require('../../applicant/service/applicant_service');
-const resumeService = require('../../applicant/service/resume_service');
 const HttpError = require('http-errors');
 
 const getTeams = async (recruitmentId) => {
@@ -31,11 +30,14 @@ const getTeam = async (recruitmentId, teamId) => {
     recruitment_id: team.recruitment_id,
     resume_link: team.resume_link,
     sheets_link: team.sheets_link,
-    contents: team.introduction
+    contents: team.introduction,
+    sheets_row: team.sheets_row,
   };
 };
 
 const insertTeam = async (recruitmentId, team) => {
+  const resumeService = require('../../applicant/service/resume_service'); // Circular reference error
+
   const result = await Team.create({
     name: team.name,
     recruitment_id: recruitmentId,
@@ -98,10 +100,22 @@ const updateTeam = async (recruitmentId, team, teamId) => {
   };
 };
 
+async function updateSheetsRow(recruitmentId, teamId, value) {
+  await Team.update({
+    sheets_row: value,
+  }, {
+    where: {
+      recruitment_id: recruitmentId,
+      id: teamId
+    }
+  })
+}
+
 module.exports = {
   getTeams,
   getTeam,
   insertTeam,
   deleteTeam,
   updateTeam,
+  updateSheetsRow,
 };
